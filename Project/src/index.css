@@ -1,8 +1,4 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -20,68 +16,90 @@
   --blue: #7FC2D7;
   --purple: #9C97D7;
   --yellow: #FFAE35;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Bold.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Bold.woff') format(woff);
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Medium.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Medium.woff') format(woff);
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Regular.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Regular.woff') format(woff);
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Light.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Light.woff') format(woff);
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Ultralight.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Ultralight.woff') format(woff);
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--white);
+  font-family: SFUIDisplay, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+* {
+  color: var(--black);
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
+ul {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  list-style: none;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+a {
+  text-decoration: none;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 0;
+  border: 0;
+  background: transparent;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #646cff;
+.non-display {
+  display: none;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
+.container {
+  padding: 0 80px;
 }
