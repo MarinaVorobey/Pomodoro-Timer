@@ -7,6 +7,20 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  --green: #A8B64F;
+  --white: #FFFFFF;
+  --black: #333333;
+  --beige: #F4F4F4;
+  --pink: #EA8979;
+  --light-red: #EE735D;
+  --red: #DC3E22;
+  --dark-red: #B7280F;
+  --greyC4: #C4C4C4;
+  --grey99: #999999;
+  --blue: #7FC2D7;
+  --purple: #9C97D7;
+  --yellow: #FFAE35;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,6 +32,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -46,9 +61,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -59,9 +76,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }

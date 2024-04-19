@@ -1,0 +1,15 @@
+export enum colorsLight {
+  green = "green",
+  white = "white",
+  black = "black",
+  beige = "beige",
+  pink = "pink",
+  lightRed = "light-red",
+  red = "red",
+  darkRed = "dark-red",
+  greyC4 = "greyC4",
+  grey99 = "grey99",
+  blue = "blue",
+  purple = "purple",
+  yellow = "yellow",
+}
