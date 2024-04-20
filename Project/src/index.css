@@ -1,7 +1,5 @@
 :root {
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   --green: #A8B64F;
   --white: #FFFFFF;
@@ -90,6 +88,8 @@ a {
 }
 
 button {
+  display: flex;
+  flex-flow: row nowrap;
   padding: 0;
   border: 0;
   background: transparent;
@@ -102,4 +102,82 @@ button {
 
 .container {
   padding: 0 80px;
+}
+
+/* Dropdown */
+
+.dropdown {
+  width: 100%;
+  flex: 1 1 0%;
+}
+
+.dropdown__container {
+  position: relative;
+}
+
+.dropdown__list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+/* Header */
+
+.header {
+  padding: 15px 80px;
+}
+
+.header__nav {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__main-link {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--red);
+}
+
+.main-link__img {
+  max-width: 40px;
+  max-height: 40px;
+}
+
+.header__stats-link {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--red);
+  transition: color 0.3s ease-in-out;
+}
+
+.header__stats-link svg path {
+  fill: var(--red);
+  transition: fill 0.3s ease-in-out;
+}
+
+.header__stats-link:focus {
+  color: var(--dark-red);
+}
+
+.header__stats-link:focus svg path {
+  fill: var(--dark-red);
+}
+
+.header__stats-link:hover {
+  color: var(--dark-red);
+}
+
+.header__stats-link:hover svg path {
+  fill: var(--dark-red);
 }
