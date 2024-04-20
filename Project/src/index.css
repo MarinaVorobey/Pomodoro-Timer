@@ -77,7 +77,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul {
+.list-reset {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -98,6 +98,17 @@ button {
 
 .non-display {
   display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
 }
 
 .container {
@@ -126,6 +137,7 @@ button {
 
 .header {
   padding: 15px 80px;
+  margin-bottom: 100px;
 }
 
 .header__nav {

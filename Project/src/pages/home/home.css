@@ -1,0 +1,48 @@
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 3%;
+}
+
+.main__left {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  flex-basis: 40%;
+}
+
+.main__right {
+  flex-basis: 57%;
+}
+
+/* Tutorial */
+.tutorial {
+  margin-bottom: 25px;
+}
+
+.tutorial__title {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.tutorial__list {
+  margin: 0;
+  padding: 0 15px;
+}
+
+.tutorial__item {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+.tutorial__item:not(:last-child) {
+  margin-bottom: 14px;
+}
+
+.tutorial__item::marker {
+  color: var(--dark-red);
+}

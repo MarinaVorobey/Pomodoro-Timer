@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { useCloseByClickout } from "../../utils/useCloseByClickout";
+import { useCloseByClickout } from "../../hooks/useCloseByClickout";
 
 type TDropdownMenuProps = {
   coords: {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetCoords } from "../../utils/useGetCoords";
+import { useGetCoords } from "../../hooks/useGetCoords";
 import { DropdownMenu } from "./DropdownMenu";
 
 type TDropdownProps = {
