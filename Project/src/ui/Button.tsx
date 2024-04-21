@@ -3,9 +3,10 @@ import { Icon } from "./Icon/Icon";
 type TButtonProps = {
   action: () => void;
   className: string;
-  text: string;
+  text?: string;
   iconName?: string;
   iconClass?: string;
+  type?: "button" | "submit" | "reset";
 };
 
 export function Button({
@@ -14,11 +15,12 @@ export function Button({
   iconName,
   text,
   iconClass,
+  type = "button",
 }: TButtonProps) {
   return (
-    <button className={className} onClick={action}>
+    <button type={type} className={className} onClick={action}>
       {iconName ? <Icon type={iconName} className={iconClass} /> : null}
-      {text}
+      {text ? text : null}
     </button>
   );
 }

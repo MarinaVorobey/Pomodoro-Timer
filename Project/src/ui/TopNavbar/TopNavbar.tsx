@@ -1,5 +1,5 @@
-import { MainLink } from "./MainLink";
-import { StatsLink } from "./StatsLink";
+import { MainLink } from "./MainLink/MainLink";
+import { StatsLink } from "./StatsLink/StatsLink";
 
 export function TopNavbar() {
   return (

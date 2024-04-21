@@ -2,6 +2,7 @@
   color-scheme: light dark;
 
   --green: #A8B64F;
+  --dark-green: #899441;
   --white: #FFFFFF;
   --black: #333333;
   --beige: #F4F4F4;
@@ -11,6 +12,7 @@
   --dark-red: #B7280F;
   --greyC4: #C4C4C4;
   --grey99: #999999;
+  --greyE4: #E4E4E4;
   --blue: #7FC2D7;
   --purple: #9C97D7;
   --yellow: #FFAE35;
@@ -18,28 +20,10 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Bold.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Bold.woff') format(woff);
+  src: local('../public/fonts/SFUIDisplay-Ultralight.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Ultralight.woff') format(woff);
   font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Medium.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Medium.woff') format(woff);
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Regular.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Regular.woff') format(woff);
-  font-style: normal;
-  font-weight: 400;
+  font-weight: 200;
   font-display: swap;
 }
 
@@ -54,10 +38,28 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Ultralight.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Ultralight.woff') format(woff);
+  src: local('../public/fonts/SFUIDisplay-Regular.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Regular.woff') format(woff);
   font-style: normal;
-  font-weight: 200;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Medium.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Medium.woff') format(woff);
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SFUIDisplay';
+  src: local('../public/fonts/SFUIDisplay-Bold.woff2') format(woff2),
+    local('../public/fonts/SFUIDisplay-Bold.woff') format(woff);
+  font-style: normal;
+  font-weight: 700;
   font-display: swap;
 }
 
