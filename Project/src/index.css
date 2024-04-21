@@ -20,8 +20,8 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Ultralight.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Ultralight.woff') format(woff);
+  src: url('/fonts/SFUIDisplay-Ultralight.woff2') format(woff2),
+    url('/fonts/SFUIDisplay-Ultralight.woff') format(woff);
   font-style: normal;
   font-weight: 200;
   font-display: swap;
@@ -29,8 +29,8 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Light.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Light.woff') format(woff);
+  src: url('/fonts/SFUIDisplay-Light.woff2') format(woff2),
+    url('/fonts/SFUIDisplay-Light.woff') format(woff);
   font-style: normal;
   font-weight: 300;
   font-display: swap;
@@ -38,8 +38,8 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Regular.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Regular.woff') format(woff);
+  src: url('/fonts/SFUIDisplay-Regular.woff2') format(woff2),
+    url('/fonts/SFUIDisplay-Regular.woff') format(woff);
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -47,8 +47,8 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Medium.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Medium.woff') format(woff);
+  src: url('/fonts/SFUIDisplay-Medium.woff2') format(woff2),
+    url('/fonts/SFUIDisplay-Medium.woff') format(woff);
   font-style: normal;
   font-weight: 500;
   font-display: swap;
@@ -56,8 +56,8 @@
 
 @font-face {
   font-family: 'SFUIDisplay';
-  src: local('../public/fonts/SFUIDisplay-Bold.woff2') format(woff2),
-    local('../public/fonts/SFUIDisplay-Bold.woff') format(woff);
+  src: url('/fonts/SFUIDisplay-Bold.woff2') format(woff2),
+    url('/fonts/SFUIDisplay-Bold.woff') format(woff);
   font-style: normal;
   font-weight: 700;
   font-display: swap;

@@ -183,5 +183,91 @@
   margin: 0;
   font-size: 150px;
   font-weight: 200;
+  line-height: 179px;
   color: var(--black);
+}
+
+.timer__add {
+  position: absolute;
+  top: 38%;
+  right: -65px;
+}
+
+.timer__add-icon svg circle {
+  fill: var(--greyC4);
+  transition: fill 0.3s ease-in-out;
+}
+
+.timer__add:focus svg circle {
+  fill: var(--dark-green);
+}
+
+.timer__add:hover svg circle {
+  fill: var(--dark-green);
+}
+
+.timer__add-icon svg path {
+  fill: var(--white);
+}
+
+.timer__task {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.timer__task-num,
+.timer__task-name {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.timer__task-num {
+  color: var(--greyC4);
+}
+
+.timer__task-name {
+  color: var(--black);
+}
+
+.timer__controls {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 25px;
+}
+
+.timer__start {
+  padding: 20px 50px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white);
+  background-color: var(--green);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.timer__start:focus {
+  background-color: var(--dark-green);
+}
+
+.timer__start:hover {
+  background-color: var(--dark-green);
+}
+
+.timer__stop {
+  padding: 20px 50px;
+  border: 1px solid var(--greyC4);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--greyC4);
+  background-color: transparent;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.timer__stop:focus {
+  color: var(--white);
+  background-color: var(--greyC4);
+}
+
+.timer__stop:hover {
+  color: var(--white);
+  background-color: var(--greyC4);
 }
