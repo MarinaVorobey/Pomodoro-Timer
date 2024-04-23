@@ -4,13 +4,13 @@ import { Icon } from "../../../../../ui/Icon/Icon";
 import { GenericList, TGenericItem } from "../../../../../util/GenericList";
 
 type TTaskItemProps = {
-  order: number | string;
+  tomatoes: number;
   name: string;
 };
 
 const NOOP = () => {};
 
-export function TaskItem({ order, name }: TTaskItemProps) {
+export function TaskItem({ tomatoes, name }: TTaskItemProps) {
   const optionsList: TGenericItem[] = [
     {
       onClick: NOOP,
@@ -53,7 +53,7 @@ export function TaskItem({ order, name }: TTaskItemProps) {
   return (
     <>
       <div className="task__text-block">
-        <span className="task__order">{order}</span>
+        <span className="task__tomato-num">{tomatoes}</span>
         <span className="task__name">{name}</span>
       </div>
       <Dropdown

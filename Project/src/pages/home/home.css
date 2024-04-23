@@ -84,6 +84,10 @@
   background-color: var(--dark-green);
 }
 
+.form__error-block {
+  color: var(--dark-red);
+}
+
 /* TaskList */
 .tasks__list {
   max-width: 370px;
@@ -126,14 +130,14 @@
   gap: 10px;
 }
 
-.task__order,
+.task__tomato-num,
 .task__name {
   font-size: 16px;
   font-weight: 300;
   color: var(--black);
 }
 
-.task__order {
+.task__tomato-num {
   padding: 5px 9px;
   border: 1px solid var(--greyC4);
   border-radius: 100%;
