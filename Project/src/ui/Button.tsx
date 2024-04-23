@@ -1,6 +1,6 @@
 import { Icon } from "./Icon/Icon";
 
-type TButtonProps = {
+export type TButtonProps = {
   action: () => void;
   className: string;
   text?: string;

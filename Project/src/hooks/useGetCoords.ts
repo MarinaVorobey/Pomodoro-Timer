@@ -7,7 +7,9 @@ type Coords = {
 
 export function useGetCoords(
   containerRef: React.RefObject<HTMLDivElement>,
-  dropdownOpen: boolean
+  dropdownOpen: boolean,
+  leftShift: number,
+  topShift: number
 ) {
   const [coords, setCoords] = React.useState<Coords | null>(null);
 
@@ -19,8 +21,8 @@ export function useGetCoords(
 
       if (box) {
         return {
-          left: box.left,
-          top: box.top + box.height + window.scrollY,
+          left: box.left + leftShift,
+          top: box.top + box.height + window.scrollY + topShift,
         };
       }
 
@@ -29,7 +31,7 @@ export function useGetCoords(
 
     const coords = getCoords();
     setCoords(coords);
-  }, [dropdownOpen, containerRef]);
+  }, [dropdownOpen, containerRef, leftShift, topShift]);
 
   return [coords];
 }

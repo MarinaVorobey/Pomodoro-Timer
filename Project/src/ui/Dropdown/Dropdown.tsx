@@ -6,12 +6,31 @@ type TDropdownProps = {
   button: React.ReactNode;
   children: React.ReactNode;
   onClose?: () => void;
+  leftShift?: number;
+  topShift?: number;
 };
 
-export function Dropdown({ button, children, onClose }: TDropdownProps) {
+export function Dropdown({
+  button,
+  children,
+  onClose,
+  leftShift,
+  topShift,
+}: TDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const [coords] = useGetCoords(containerRef, isDropdownOpen);
+  if (!leftShift) {
+    leftShift = 0;
+  }
+  if (!topShift) {
+    topShift = 0;
+  }
+  const [coords] = useGetCoords(
+    containerRef,
+    isDropdownOpen,
+    leftShift,
+    topShift
+  );
 
   return (
     <div ref={containerRef} className="dropdown">
