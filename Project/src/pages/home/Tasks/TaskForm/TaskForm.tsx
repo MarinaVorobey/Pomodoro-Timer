@@ -1,13 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "../../../../ui/Button";
-
-type TTaskFormProps = {
-  submitFn: (name: string) => void;
-};
+import { useDispatch } from "react-redux";
+import { addTask } from "../../../../store/actions";
 
 const NOOP = () => {};
 
-export function TaskForm({ submitFn }: TTaskFormProps) {
+export function TaskForm() {
+  const dispatch = useDispatch();
   const [formTask, setFormTask] = useState("");
   const [error, setError] = useState("");
 
@@ -17,7 +16,7 @@ export function TaskForm({ submitFn }: TTaskFormProps) {
       setError("Введите как минимум 3 символа");
       return;
     }
-    submitFn(formTask);
+    dispatch(addTask(formTask));
     return setFormTask("");
   }
 

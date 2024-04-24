@@ -1,19 +1,28 @@
+import { useDispatch } from "react-redux";
 import { Button } from "../../../../../ui/Button";
 import { Dropdown } from "../../../../../ui/Dropdown/Dropdown";
 import { Icon } from "../../../../../ui/Icon/Icon";
 import { GenericList, TGenericItem } from "../../../../../util/GenericList";
+import {
+  addTomato,
+  deleteTask,
+  removeTomato,
+} from "../../../../../store/actions";
 
 type TTaskItemProps = {
+  id: string;
   tomatoes: number;
   name: string;
 };
 
 const NOOP = () => {};
 
-export function TaskItem({ tomatoes, name }: TTaskItemProps) {
+export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
+  const dispatch = useDispatch();
+
   const optionsList: TGenericItem[] = [
     {
-      onClick: NOOP,
+      onClick: () => dispatch(addTomato(id)),
       className: "task__option",
       element: "Увеличить",
       id: "1",
@@ -21,9 +30,10 @@ export function TaskItem({ tomatoes, name }: TTaskItemProps) {
       As: "button",
     },
     {
-      onClick: NOOP,
+      onClick: () => dispatch(removeTomato(id)),
       className: "task__option",
       element: "Уменьшить",
+      disabled: tomatoes == 1,
       id: "2",
       icon: <Icon type="minus" className="task__option-icon" />,
       As: "button",
@@ -37,7 +47,7 @@ export function TaskItem({ tomatoes, name }: TTaskItemProps) {
       As: "button",
     },
     {
-      onClick: NOOP,
+      onClick: () => dispatch(deleteTask(id)),
       className: "task__option",
       element: "Удалить",
       id: "4",

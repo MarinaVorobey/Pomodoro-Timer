@@ -171,6 +171,10 @@
   color: var(--dark-green);
 }
 
+.task__option:disabled {
+  color: var(--grey99);
+}
+
 .task__option:first-child {
   border-top: 1px solid var(--greyC4);
   padding-top: 10px;
@@ -183,6 +187,10 @@
 
 .task__option-icon svg g path {
   fill: var(--green);
+}
+
+.task__option:disabled svg g path {
+  fill: var(--grey99);
 }
 
 /* Timer */
