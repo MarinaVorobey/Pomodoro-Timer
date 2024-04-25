@@ -1,13 +1,23 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "../../../../ui/Button";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../../../store/actions";
+import { addTask, renameTask } from "../../../../store/actions";
 
-const NOOP = () => {};
+type TTaskFormProps = {
+  additionalAction?: () => void;
+  type: "edit" | "add";
+  id?: string;
+  starterValue?: string;
+};
 
-export function TaskForm() {
+export function TaskForm({
+  additionalAction,
+  type,
+  id,
+  starterValue,
+}: TTaskFormProps) {
   const dispatch = useDispatch();
-  const [formTask, setFormTask] = useState("");
+  const [formTask, setFormTask] = useState(starterValue ? starterValue : "");
   const [error, setError] = useState("");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>): void {
@@ -16,7 +26,12 @@ export function TaskForm() {
       setError("Введите как минимум 3 символа");
       return;
     }
-    dispatch(addTask(formTask));
+    if (type === "add") {
+      dispatch(addTask(formTask));
+    } else {
+      dispatch(renameTask(id, formTask));
+    }
+    if (additionalAction) additionalAction();
     return setFormTask("");
   }
 
@@ -25,22 +40,28 @@ export function TaskForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form tasks__form">
-      <label className="visually-hidden" htmlFor="taskName">
+    <form
+      onSubmit={handleSubmit}
+      className={`form ${type === "add" ? "tasks__form" : "tasks__edit-form"}`}
+    >
+      <label
+        className="visually-hidden"
+        htmlFor={type == "add" ? "taskName" : "taskEditName"}
+      >
         Название задачи
       </label>
       <input
         onBlur={() => setError("")}
         onChange={handleChange}
-        id="taskName"
+        id={type == "add" ? "taskName" : "taskEditName"}
         className="tasks__input"
-        name="taskName"
+        name={type == "add" ? "taskName" : "taskEditName"}
         placeholder="Название задачи"
         value={formTask}
       ></input>
       <Button
-        action={NOOP}
-        text="Добавить"
+        action={() => {}}
+        text={type === "add" ? "Добавить" : "Редактировать"}
         type="submit"
         className="form__submit-button"
       />

@@ -8,6 +8,10 @@ import {
   deleteTask,
   removeTomato,
 } from "../../../../../store/actions";
+import { useState } from "react";
+import { Modal } from "../../../../../ui/Modal/Modal";
+import { TaskDeleteModal } from "./TaskDeleteModal";
+import { TaskEditModal } from "./TaskEditModal";
 
 type TTaskItemProps = {
   id: string;
@@ -15,10 +19,29 @@ type TTaskItemProps = {
   name: string;
 };
 
-const NOOP = () => {};
-
 export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
   const dispatch = useDispatch();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const deleteModal: React.ReactNode = (
+    <TaskDeleteModal
+      onConfirm={() => {
+        dispatch(deleteTask(id));
+        setModalOpen(false);
+      }}
+      onCancel={() => setModalOpen(false)}
+    />
+  );
+  const editModal: React.ReactNode = (
+    <TaskEditModal
+      starterValue={name}
+      id={id}
+      onConfirm={() => setModalOpen(false)}
+      onCancel={() => setModalOpen(false)}
+    />
+  );
+
+  const [modalType, setModalType] = useState(deleteModal);
 
   const optionsList: TGenericItem[] = [
     {
@@ -39,7 +62,10 @@ export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
       As: "button",
     },
     {
-      onClick: NOOP,
+      onClick: () => {
+        setModalOpen(true);
+        setModalType(editModal);
+      },
       className: "task__option",
       element: "Редактировать",
       id: "3",
@@ -47,7 +73,10 @@ export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
       As: "button",
     },
     {
-      onClick: () => dispatch(deleteTask(id)),
+      onClick: () => {
+        setModalOpen(true);
+        setModalType(deleteModal);
+      },
       className: "task__option",
       element: "Удалить",
       id: "4",
@@ -57,7 +86,7 @@ export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
   ];
 
   const optionsBtn: React.ReactNode = (
-    <Button action={NOOP} className="task__options" iconName="dots" />
+    <Button action={() => {}} className="task__options" iconName="dots" />
   );
 
   return (
@@ -72,6 +101,9 @@ export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
         leftShift={-71}
         topShift={14}
       />
+      {modalOpen ? (
+        <Modal children={modalType} onClose={() => setModalOpen(false)} />
+      ) : null}
     </>
   );
 }

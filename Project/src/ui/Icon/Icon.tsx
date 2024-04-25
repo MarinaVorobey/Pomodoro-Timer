@@ -1,15 +1,29 @@
 import * as icons from "./icons";
 
+type TIconNames =
+  | "alarm-clock"
+  | "arrow"
+  | "bin"
+  | "cancel"
+  | "cross"
+  | "dots"
+  | "focus"
+  | "minus"
+  | "pen"
+  | "plus"
+  | "plus-transparent"
+  | "stats";
+
 type TIconProps = {
-  type: string;
+  type: TIconNames;
   className?: string;
 };
 
-type TIconNames = {
-  [N: string]: React.ReactNode;
+type TIcons = {
+  [N in TIconNames]: React.ReactNode;
 };
 
-const iconNames: TIconNames = {
+const iconNamesToIcons: TIcons = {
   "alarm-clock": icons.AlarmClock(),
   arrow: icons.Arrow(),
   bin: icons.Bin(),
@@ -27,7 +41,7 @@ const iconNames: TIconNames = {
 export function Icon({ type, className }: TIconProps) {
   return (
     <div className={`icon-container${className ? " " + className : ""}`}>
-      {iconNames[type]}
+      {iconNamesToIcons[type]}
     </div>
   );
 }

@@ -20,7 +20,7 @@ export function Tasks() {
 
   return (
     <div className="tasks">
-      <TaskForm />
+      <TaskForm type="add" />
       <TaskList list={list} />
       <p className="tasks__time">1 час 15 мин</p>
     </div>

@@ -173,6 +173,7 @@
 
 .task__option:disabled {
   color: var(--grey99);
+  cursor: not-allowed;
 }
 
 .task__option:first-child {
@@ -191,6 +192,51 @@
 
 .task__option:disabled svg g path {
   fill: var(--grey99);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+.modal__submit-btns {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal__delete-btn {
+  padding: 20px 50px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--red);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal__delete-btn:focus {
+  background-color: var(--dark-red);
+}
+
+.modal__delete-btn:hover {
+  background-color: var(--dark-red);
+}
+
+.modal__cancel-btn {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--black);
+  text-decoration: underline 2px;
+}
+
+.tasks__edit-form {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 15px;
 }
 
 /* Timer */
