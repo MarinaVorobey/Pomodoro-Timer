@@ -4,6 +4,7 @@ import { TGenericItem } from "../../../util/GenericList";
 import { TaskItem } from "./TaskList/TaskItem/TaskItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/rootReducer";
+import "./tasks.css";
 
 export function Tasks() {
   const taskList = useSelector((state: RootState) => state.tasks);

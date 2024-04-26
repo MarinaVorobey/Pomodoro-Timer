@@ -1,6 +1,7 @@
 import { Tasks } from "./Tasks/Tasks";
 import { Timer } from "./Timer/Timer";
 import { Tutorial } from "./Tutorial/Tutorial";
+import "./home.css";
 
 export function Home() {
   return (

@@ -1,0 +1,192 @@
+/* Tasks */
+
+/* TaskForm */
+.tasks__form {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+  gap: 25px;
+  max-width: 370px;
+  padding-bottom: 25px;
+}
+
+.tasks__input {
+  width: 100%;
+  padding: 20px 15px;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: var(--beige);
+}
+
+.form__submit-button {
+  padding: 20px 50px;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  background-color: var(--green);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form__submit-button:focus {
+  background-color: var(--dark-green);
+}
+
+.form__submit-button:hover {
+  background-color: var(--dark-green);
+}
+
+.form__error-block {
+  color: var(--dark-red);
+}
+
+/* TaskList */
+.tasks__list {
+  max-width: 370px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.tasks__item:first-child {
+  border-top: 1px solid var(--greyE4);
+}
+
+.tasks__item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--greyE4);
+}
+
+.task__options svg circle {
+  fill: var(--greyC4);
+  transition: fill 0.3s ease-in-out;
+}
+
+.task__options:focus svg circle {
+  fill: var(--grey99);
+}
+
+.task__options:hover svg circle {
+  fill: var(--grey99);
+}
+
+.task__text-block {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.task__tomato-num,
+.task__name {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--black);
+}
+
+.task__tomato-num {
+  padding: 5px 9px;
+  border: 1px solid var(--greyC4);
+  border-radius: 100%;
+}
+
+.tasks__time {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--grey99);
+}
+
+.task__option {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 15px;
+  border-left: 1px solid var(--greyC4);
+  border-right: 1px solid var(--greyC4);
+  font-size: 16px;
+  color: var(--grey99);
+  transition: color 0.3s ease-in-out;
+}
+
+.task__option:focus {
+  color: var(--dark-green);
+}
+
+.task__option:hover {
+  color: var(--dark-green);
+}
+
+.task__option:disabled {
+  color: var(--grey99);
+  cursor: not-allowed;
+}
+
+.task__option:first-child {
+  border-top: 1px solid var(--greyC4);
+  padding-top: 10px;
+}
+
+.task__option:last-child {
+  border-bottom: 1px solid var(--greyC4);
+  padding-bottom: 10px;
+}
+
+.task__option-icon svg g path {
+  fill: var(--green);
+}
+
+.task__option:disabled svg g path {
+  fill: var(--grey99);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+.modal__submit-btns {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal__delete-btn {
+  padding: 20px 50px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--red);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal__delete-btn:focus {
+  background-color: var(--dark-red);
+}
+
+.modal__delete-btn:hover {
+  background-color: var(--dark-red);
+}
+
+.modal__cancel-btn {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--black);
+  text-decoration: underline 2px;
+}
+
+.tasks__edit-form {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 15px;
+}

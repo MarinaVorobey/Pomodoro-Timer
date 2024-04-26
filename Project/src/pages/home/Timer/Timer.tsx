@@ -1,5 +1,6 @@
 import { TimeBlock } from "./TimeBlock/TimeBlock";
 import { TimerControls } from "./TimerControls/TimerControls";
+import "./timer.css";
 
 export function Timer() {
   return (
