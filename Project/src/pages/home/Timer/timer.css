@@ -39,6 +39,7 @@
 
 .timer__time-block {
   position: relative;
+  min-width: 375px;
 }
 
 .timer__time {

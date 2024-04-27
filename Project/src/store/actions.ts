@@ -79,4 +79,45 @@ export const addTime: ActionCreator<AddTimeAction> = () => ({
   type: ADD_TIME,
 });
 
-export type TimerActions = AddTimeAction;
+export const TIMER_COUNT = "TIMER_COUNT";
+export type TimerCountAction = {
+  type: typeof TIMER_COUNT;
+};
+
+export const timerCount: ActionCreator<TimerCountAction> = () => ({
+  type: TIMER_COUNT,
+});
+
+export const PAUSE_TIMER = "PAUSE_TIMER";
+export type PauseTimerAction = {
+  type: typeof PAUSE_TIMER;
+};
+
+export const pauseTimer: ActionCreator<PauseTimerAction> = () => ({
+  type: PAUSE_TIMER,
+});
+
+export const START_TIMER = "START_TIMER";
+export type StartTimerAction = {
+  type: typeof START_TIMER;
+};
+
+export const startTimer: ActionCreator<StartTimerAction> = () => ({
+  type: START_TIMER,
+});
+
+export const COMPLETE_TIMER = "COMPLETE_TIMER";
+export type CompleteTimerAction = {
+  type: typeof COMPLETE_TIMER;
+};
+
+export const completeTimer: ActionCreator<CompleteTimerAction> = () => ({
+  type: COMPLETE_TIMER,
+});
+
+export type TimerActions =
+  | AddTimeAction
+  | TimerCountAction
+  | PauseTimerAction
+  | StartTimerAction
+  | CompleteTimerAction;

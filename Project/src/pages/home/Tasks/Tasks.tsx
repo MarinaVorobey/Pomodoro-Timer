@@ -4,13 +4,13 @@ import { TGenericItem } from "../../../util/GenericList";
 import { TaskItem } from "./TaskList/TaskItem/TaskItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/rootReducer";
-import { useFormatTimeTasks } from "../../../hooks/useFormatTimeTasks";
+import { FormatTimeTasks } from "../../../util/FormatTimeTasks";
 import "./tasks.css";
 
 export function Tasks() {
   const taskList = useSelector((state: RootState) => state.tasks);
   const totalTime = useSelector((state: RootState) => state.totalTime);
-  const timeFormatted = useFormatTimeTasks(totalTime);
+  const timeFormatted = FormatTimeTasks(totalTime);
 
   const list: TGenericItem[] = taskList.map((t) => {
     return {

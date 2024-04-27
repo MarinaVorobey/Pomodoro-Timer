@@ -1,4 +1,4 @@
-export function useFormatTimeTimer(time: number): string {
+export function FormatTimeTimer(time: number): string {
   const minutes = Math.floor(time / 60000);
   if (minutes > 0) {
     time = time % 60000;

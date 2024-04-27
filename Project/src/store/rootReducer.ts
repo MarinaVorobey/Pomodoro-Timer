@@ -5,12 +5,16 @@ import {
   ADD_TOMATO,
   AddTaskAction,
   AddTomatoAction,
+  COMPLETE_TIMER,
   DELETE_TASK,
   DeleteTaskAction,
+  PAUSE_TIMER,
   REMOVE_TOMATO,
   RENAME_TASK,
   RemoveTomatoAction,
   RenameTaskAction,
+  START_TIMER,
+  TIMER_COUNT,
   TaskActions,
   TimerActions,
 } from "./actions";
@@ -33,7 +37,8 @@ export type TCurrentTask = {
   tomatoesPassed: number;
   tomatoesLeft: number;
   isPaused: boolean;
-  mode: "work" | "break" | "stopped";
+  isStopped: boolean;
+  mode: "work" | "break";
 };
 
 export type RootState = {
@@ -58,6 +63,7 @@ const initialState: RootState = {
 };
 
 const TOMATO_TIME = 1500000;
+const BREAK_TIME = 300000;
 
 export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
   createReducer(initialState, (builder) => {
@@ -78,7 +84,8 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
             tomatoesPassed: 0,
             tomatoesLeft: 1,
             isPaused: false,
-            mode: "stopped",
+            isStopped: true,
+            mode: "work",
           };
         }
       })
@@ -121,7 +128,8 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
               tomatoesPassed: 0,
               tomatoesLeft: state.tasks[0].tomatoes,
               isPaused: false,
-              mode: "stopped",
+              isStopped: true,
+              mode: "work",
             };
           }
         }
@@ -129,5 +137,51 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
       .addCase(ADD_TIME, (state) => {
         if (!state.currTask) return;
         state.currTask.time += 60000;
+        state.totalTime += 60000;
+      })
+      .addCase(TIMER_COUNT, (state) => {
+        if (!state.currTask) return;
+        state.currTask.time -= 1000;
+        state.totalTime -= 1000;
+      })
+      .addCase(PAUSE_TIMER, (state) => {
+        if (!state.currTask) return;
+        state.currTask.isPaused = true;
+      })
+      .addCase(START_TIMER, (state) => {
+        if (!state.currTask) return;
+        state.currTask.isPaused = false;
+        state.currTask.isStopped = false;
+      })
+      .addCase(COMPLETE_TIMER, (state) => {
+        if (!state.currTask) return;
+        const task = state.currTask;
+        if (task.mode === "work") {
+          task.tomatoesLeft -= 1;
+
+          if (task.tomatoesLeft === 0) {
+            state.tasks.splice(0, 1);
+            if (!state.tasks.length) {
+              state.currTask = null;
+            } else {
+              state.currTask = {
+                id: state.tasks[0].id,
+                name: state.tasks[0].name,
+                time: BREAK_TIME,
+                tomatoesPassed: 0,
+                tomatoesLeft: state.tasks[0].tomatoes,
+                isPaused: false,
+                isStopped: false,
+                mode: "break",
+              };
+            }
+          } else {
+            task.mode = "break";
+            task.time = BREAK_TIME;
+          }
+        } else {
+          task.mode = "work";
+          task.time = TOMATO_TIME;
+        }
       });
   });
