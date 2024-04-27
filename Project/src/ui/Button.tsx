@@ -1,12 +1,13 @@
-import { Icon } from "./Icon/Icon";
+import { Icon, TIconNames } from "./Icon/Icon";
 
 export type TButtonProps = {
   action: () => void;
   className: string;
   text?: string;
-  iconName?: string;
+  iconName?: TIconNames;
   iconClass?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
 export function Button({
@@ -16,9 +17,15 @@ export function Button({
   text,
   iconClass,
   type = "button",
+  disabled,
 }: TButtonProps) {
   return (
-    <button type={type} className={className} onClick={action}>
+    <button
+      type={type}
+      className={className}
+      onClick={action}
+      disabled={disabled ? disabled : false}
+    >
       {iconName ? <Icon type={iconName} className={iconClass} /> : null}
       {text ? text : null}
     </button>

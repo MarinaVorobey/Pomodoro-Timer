@@ -1,21 +1,35 @@
+import { useSelector } from "react-redux";
 import { TimeBlock } from "./TimeBlock/TimeBlock";
 import { TimerControls } from "./TimerControls/TimerControls";
 import "./timer.css";
+import { RootState } from "../../../store/rootReducer";
 
 export function Timer() {
+  const currTask = useSelector((state: RootState) => state.currTask);
+
   return (
     <div className="timer">
       <div className="timer__head">
-        <h4 className="timer__name">Timer</h4>
-        <span className="timer_num">Помидор 1</span>
+        <h4 className="timer__name">
+          {currTask ? currTask.name : "У вас пока нет задач"}
+        </h4>
+        <span className="timer_num">
+          {!currTask
+            ? ""
+            : currTask.mode !== "break"
+            ? `Помидор ${currTask.tomatoesPassed + 1}`
+            : "Перерыв"}
+        </span>
       </div>
       <div className="timer__body">
-        <TimeBlock />
-        <p className="timer__task">
-          <span className="timer__task-num">Задача 1 - </span>
-          <span className="timer__task-name">Сверстать сайт</span>
-        </p>
-        <TimerControls />
+        <TimeBlock taskData={currTask} />
+        {currTask ? (
+          <p className="timer__task">
+            <span className="timer__task-num">{`Задача ${currTask.id} - `}</span>
+            <span className="timer__task-name">{currTask.name}</span>
+          </p>
+        ) : null}
+        <TimerControls taskData={currTask} />
       </div>
     </div>
   );

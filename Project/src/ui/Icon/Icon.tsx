@@ -1,6 +1,6 @@
 import * as icons from "./icons";
 
-type TIconNames =
+export type TIconNames =
   | "alarm-clock"
   | "arrow"
   | "bin"

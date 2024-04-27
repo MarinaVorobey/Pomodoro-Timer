@@ -68,3 +68,15 @@ export type TaskActions =
   | AddTomatoAction
   | RemoveTomatoAction
   | DeleteTaskAction;
+
+// Timer actions
+export const ADD_TIME = "ADD_TIME";
+export type AddTimeAction = {
+  type: typeof ADD_TIME;
+};
+
+export const addTime: ActionCreator<AddTimeAction> = () => ({
+  type: ADD_TIME,
+});
+
+export type TimerActions = AddTimeAction;

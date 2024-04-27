@@ -72,6 +72,15 @@
   fill: var(--white);
 }
 
+.timer__add:disabled {
+  cursor: not-allowed;
+}
+
+.timer__add:disabled:focus svg circle,
+.timer__add:disabled:hover svg circle {
+  fill: var(--greyC4);
+}
+
 .timer__task {
   margin: 0;
   margin-bottom: 30px;
@@ -130,6 +139,24 @@
 }
 
 .timer__stop:hover {
+  color: var(--white);
+  background-color: var(--greyC4);
+}
+
+.timer__btn:disabled {
+  border: 1px solid var(--greyC4);
+  color: var(--greyC4);
+  background-color: transparent;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: not-allowed;
+}
+
+.timer__btn:disabled:focus {
+  color: var(--white);
+  background-color: var(--greyC4);
+}
+
+.timer__btn:disabled:hover {
   color: var(--white);
   background-color: var(--greyC4);
 }
