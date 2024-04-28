@@ -14,6 +14,7 @@ import {
   RemoveTomatoAction,
   RenameTaskAction,
   SKIP_BREAK,
+  SKIP_TASK,
   START_TIMER,
   STOP_TIMER,
   TIMER_COUNT,
@@ -119,7 +120,8 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
       .addCase(DELETE_TASK, (state, action: DeleteTaskAction) => {
         state.tasks = state.tasks.filter((x: TTask) => x.id !== action.id);
         if (action.id === state.currTask?.id) {
-          state.totalTime -= TOMATO_TIME * state.currTask.tomatoesLeft;
+          state.totalTime -= TOMATO_TIME * state.currTask.tomatoesLeft - 1;
+          state.totalTime -= state.currTask.time;
           if (!state.tasks.length) {
             state.currTask = null;
           } else {
@@ -192,12 +194,35 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
         if (!state.currTask) return;
         state.currTask.isPaused = false;
         state.currTask.isStopped = true;
+        state.totalTime -= state.currTask.time;
+        state.totalTime += TOMATO_TIME;
         state.currTask.time = TOMATO_TIME;
       })
       .addCase(SKIP_BREAK, (state) => {
         if (!state.currTask) return;
         state.currTask.isPaused = false;
         state.currTask.isStopped = true;
+        state.currTask.time = TOMATO_TIME;
         state.currTask.mode = "work";
+      })
+      .addCase(SKIP_TASK, (state) => {
+        if (!state.currTask) return;
+        state.totalTime -= TOMATO_TIME * (state.currTask.tomatoesLeft - 1);
+        state.totalTime -= state.currTask.time;
+        state.tasks.splice(0, 1);
+        if (!state.tasks.length) {
+          state.currTask = null;
+        } else {
+          state.currTask = {
+            id: state.tasks[0].id,
+            name: state.tasks[0].name,
+            time: TOMATO_TIME,
+            tomatoesPassed: 0,
+            tomatoesLeft: state.tasks[0].tomatoes,
+            isPaused: false,
+            isStopped: true,
+            mode: "work",
+          };
+        }
       });
   });

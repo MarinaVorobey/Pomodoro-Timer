@@ -133,6 +133,15 @@ export const skipBreak: ActionCreator<SkipBreakAction> = () => ({
   type: SKIP_BREAK,
 });
 
+export const SKIP_TASK = "SKIP_TASK";
+export type SkipTaskAction = {
+  type: typeof SKIP_TASK;
+};
+
+export const skipTask: ActionCreator<SkipTaskAction> = () => ({
+  type: SKIP_TASK,
+});
+
 export type TimerActions =
   | AddTimeAction
   | TimerCountAction

@@ -4,6 +4,7 @@ import { Button } from "../../../../ui/Button";
 import {
   pauseTimer,
   skipBreak,
+  skipTask,
   startTimer,
   stopTimer,
 } from "../../../../store/actions";
@@ -31,6 +32,10 @@ export function TimerControls({ taskData }: TTimerControlProps) {
     dispatch(skipBreak());
   };
 
+  const skipTaskDispatch = () => {
+    dispatch(skipTask());
+  };
+
   return (
     <div className="timer__controls">
       <Button
@@ -50,12 +55,18 @@ export function TimerControls({ taskData }: TTimerControlProps) {
         disabled={!taskData}
       />
       <Button
-        action={taskData?.mode == "work" ? stopTime : skipBreakTime}
+        action={
+          taskData && taskData.isPaused && taskData.mode === "work"
+            ? skipTaskDispatch
+            : taskData?.mode == "work"
+            ? stopTime
+            : skipBreakTime
+        }
         className="timer__btn timer__stop"
         text={
           taskData && taskData.isPaused && taskData.mode === "work"
             ? "Сделано"
-            : taskData && taskData.isPaused && taskData.mode === "break"
+            : taskData && taskData.mode === "break"
             ? "Пропустить"
             : "Стоп"
         }
