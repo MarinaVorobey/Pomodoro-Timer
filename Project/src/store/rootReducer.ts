@@ -13,7 +13,9 @@ import {
   RENAME_TASK,
   RemoveTomatoAction,
   RenameTaskAction,
+  SKIP_BREAK,
   START_TIMER,
+  STOP_TIMER,
   TIMER_COUNT,
   TaskActions,
   TimerActions,
@@ -62,7 +64,7 @@ const initialState: RootState = {
   stats: {},
 };
 
-const TOMATO_TIME = 1500000;
+const TOMATO_TIME = 150000;
 const BREAK_TIME = 300000;
 
 export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
@@ -157,7 +159,9 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
         if (!state.currTask) return;
         const task = state.currTask;
         if (task.mode === "work") {
-          task.tomatoesLeft -= 1;
+          task.tomatoesLeft--;
+          state.tasks[0].tomatoes--;
+          task.tomatoesPassed++;
 
           if (task.tomatoesLeft === 0) {
             state.tasks.splice(0, 1);
@@ -183,5 +187,17 @@ export const rootReducer: Reducer<RootState, TaskActions | TimerActions> =
           task.mode = "work";
           task.time = TOMATO_TIME;
         }
+      })
+      .addCase(STOP_TIMER, (state) => {
+        if (!state.currTask) return;
+        state.currTask.isPaused = false;
+        state.currTask.isStopped = true;
+        state.currTask.time = TOMATO_TIME;
+      })
+      .addCase(SKIP_BREAK, (state) => {
+        if (!state.currTask) return;
+        state.currTask.isPaused = false;
+        state.currTask.isStopped = true;
+        state.currTask.mode = "work";
       });
   });

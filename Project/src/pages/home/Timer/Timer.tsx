@@ -9,7 +9,15 @@ export function Timer() {
 
   return (
     <div className="timer">
-      <div className="timer__head">
+      <div
+        className={`timer__head ${
+          !currTask || currTask.isStopped
+            ? "timer__head--stopped"
+            : currTask.mode === "work"
+            ? "timer__head--work"
+            : "timer__head--break"
+        }`}
+      >
         <h4 className="timer__name">
           {currTask ? currTask.name : "У вас пока нет задач"}
         </h4>
@@ -18,7 +26,7 @@ export function Timer() {
             ? ""
             : currTask.mode !== "break"
             ? `Помидор ${currTask.tomatoesPassed + 1}`
-            : "Перерыв"}
+            : `Перерыв ${currTask.tomatoesPassed}`}
         </span>
       </div>
       <div className="timer__body">

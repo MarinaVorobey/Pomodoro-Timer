@@ -13,6 +13,19 @@
   align-items: center;
   padding: 20px 40px;
   background-color: var(--greyC4);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.timer__head--stopped {
+  background-color: var(--greyC4);
+}
+
+.timer__head--work {
+  background-color: var(--red);
+}
+
+.timer__head--break {
+  background-color: var(--green);
 }
 
 .timer__name {
@@ -47,7 +60,19 @@
   font-size: 150px;
   font-weight: 200;
   line-height: 179px;
+  transition: color 0.3s ease-in-out;
+}
+
+.timer__time--stopped {
   color: var(--black);
+}
+
+.timer__time--work {
+  color: var(--red);
+}
+
+.timer__time--break {
+  color: var(--green);
 }
 
 .timer__add {
@@ -126,22 +151,22 @@
 
 .timer__stop {
   padding: 20px 50px;
-  border: 1px solid var(--greyC4);
+  border: 1px solid var(--red);
   font-size: 16px;
   font-weight: 500;
-  color: var(--greyC4);
+  color: var(--red);
   background-color: transparent;
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .timer__stop:focus {
   color: var(--white);
-  background-color: var(--greyC4);
+  background-color: var(--red);
 }
 
 .timer__stop:hover {
   color: var(--white);
-  background-color: var(--greyC4);
+  background-color: var(--red);
 }
 
 .timer__btn:disabled {

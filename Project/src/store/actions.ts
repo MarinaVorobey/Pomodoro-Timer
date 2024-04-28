@@ -115,9 +115,29 @@ export const completeTimer: ActionCreator<CompleteTimerAction> = () => ({
   type: COMPLETE_TIMER,
 });
 
+export const STOP_TIMER = "STOP_TIMER";
+export type StopTimerAction = {
+  type: typeof STOP_TIMER;
+};
+
+export const stopTimer: ActionCreator<StopTimerAction> = () => ({
+  type: STOP_TIMER,
+});
+
+export const SKIP_BREAK = "SKIP_BREAK";
+export type SkipBreakAction = {
+  type: typeof SKIP_BREAK;
+};
+
+export const skipBreak: ActionCreator<SkipBreakAction> = () => ({
+  type: SKIP_BREAK,
+});
+
 export type TimerActions =
   | AddTimeAction
   | TimerCountAction
   | PauseTimerAction
   | StartTimerAction
-  | CompleteTimerAction;
+  | CompleteTimerAction
+  | StopTimerAction
+  | SkipBreakAction;

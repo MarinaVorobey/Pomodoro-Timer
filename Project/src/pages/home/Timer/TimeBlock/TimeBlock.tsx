@@ -18,7 +18,17 @@ export function TimeBlock({ taskData }: TTimeBlockProps) {
 
   return (
     <div className="timer__time-block">
-      <p className="timer__time">{formattedTime}</p>
+      <p
+        className={`timer__time ${
+          !taskData || taskData.isPaused || taskData.isStopped
+            ? "timer__time--stopped"
+            : taskData.mode === "work"
+            ? "timer__time--work"
+            : "timer__time--break"
+        }`}
+      >
+        {formattedTime}
+      </p>
       <Button
         action={() => dispatch(addTime())}
         className="timer__add"
