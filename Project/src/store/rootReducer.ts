@@ -131,10 +131,13 @@ export const rootReducer: Reducer<
       saveToStorage(state);
     })
     .addCase(DELETE_TASK, (state, action: DeleteTaskAction) => {
+      const task = state.tasks.find((x) => x.id === action.id);
+      if (task) {
+        state.totalTime -= TOMATO_TIME * task.tomatoes;
+      }
       state.tasks = state.tasks.filter((x: TTask) => x.id !== action.id);
       if (action.id === state.currTask?.id) {
-        state.totalTime -= TOMATO_TIME * state.currTask.tomatoesLeft - 1;
-        state.totalTime -= state.currTask.time;
+        state.totalTime += TOMATO_TIME - state.currTask.time;
         if (!state.tasks.length) {
           state.currTask = null;
         } else {

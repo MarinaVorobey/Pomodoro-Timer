@@ -1,3 +1,5 @@
+import { AnimatePresence, motion } from "framer-motion";
+
 export type TGenericItem = {
   element: React.ReactNode;
   id: string;
@@ -7,6 +9,7 @@ export type TGenericItem = {
   As?: "a" | "li" | "button" | "div";
   href?: string;
   disabled?: boolean;
+  transition?: boolean;
 };
 
 type TGenericListProps = {
@@ -14,6 +17,15 @@ type TGenericListProps = {
 };
 
 export function GenericList({ list }: TGenericListProps) {
+  const item = {
+    hidden: { opacity: 0, scaleX: 0 },
+    show: { opacity: 1, scaleX: 1 },
+    exit: {
+      opacity: 0,
+      scaleX: 0,
+    },
+  };
+
   return (
     <>
       {list.map(
@@ -26,18 +38,40 @@ export function GenericList({ list }: TGenericListProps) {
           id,
           href,
           disabled,
-        }) => (
-          <As
-            disabled={disabled ? disabled : false}
-            className={className}
-            onClick={() => onClick()}
-            key={id}
-            href={href}
-          >
-            {icon && icon}
-            {element}
-          </As>
-        )
+          transition,
+        }) =>
+          transition != true ? (
+            <As
+              disabled={disabled ? disabled : false}
+              className={className}
+              onClick={() => onClick()}
+              key={id}
+              href={href}
+            >
+              {icon && icon}
+              {element}
+            </As>
+          ) : (
+            <AnimatePresence>
+              <motion.li
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                key={id}
+                variants={item}
+              >
+                <As
+                  disabled={disabled ? disabled : false}
+                  className={className}
+                  onClick={() => onClick()}
+                  href={href}
+                >
+                  {icon && icon}
+                  {element}
+                </As>
+              </motion.li>
+            </AnimatePresence>
+          )
       )}
     </>
   );

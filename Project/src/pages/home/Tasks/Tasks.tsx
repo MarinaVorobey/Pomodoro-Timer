@@ -18,7 +18,8 @@ export function Tasks() {
       element: <TaskItem id={t.id} tomatoes={t.tomatoes} name={t.name} />,
       onClick: () => {},
       className: "tasks__item",
-      As: "li" as const,
+      As: "div" as const,
+      transition: true,
     };
   });
 
