@@ -27,7 +27,7 @@ export function GenericList({ list }: TGenericListProps) {
   };
 
   return (
-    <>
+    <AnimatePresence>
       {list.map(
         ({
           As = "div",
@@ -52,27 +52,25 @@ export function GenericList({ list }: TGenericListProps) {
               {element}
             </As>
           ) : (
-            <AnimatePresence>
-              <motion.li
-                initial="hidden"
-                animate="show"
-                exit="exit"
-                key={id}
-                variants={item}
+            <motion.li
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              key={id}
+              variants={item}
+            >
+              <As
+                disabled={disabled ? disabled : false}
+                className={className}
+                onClick={() => onClick()}
+                href={href}
               >
-                <As
-                  disabled={disabled ? disabled : false}
-                  className={className}
-                  onClick={() => onClick()}
-                  href={href}
-                >
-                  {icon && icon}
-                  {element}
-                </As>
-              </motion.li>
-            </AnimatePresence>
+                {icon && icon}
+                {element}
+              </As>
+            </motion.li>
           )
       )}
-    </>
+    </AnimatePresence>
   );
 }
