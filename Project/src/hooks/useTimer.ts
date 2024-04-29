@@ -6,11 +6,11 @@ export function useTimer(time: number, working: boolean) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (time <= 0) {
-      dispatch(completeTimer());
+    if (!working) {
       return;
     }
-    if (!working) {
+    if (time <= 0) {
+      dispatch(completeTimer());
       return;
     }
 

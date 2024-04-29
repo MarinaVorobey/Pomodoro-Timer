@@ -26,7 +26,7 @@ export function Timer() {
             ? ""
             : currTask.mode !== "break"
             ? `Помидор ${currTask.tomatoesPassed + 1}`
-            : `Перерыв ${currTask.tomatoesPassed}`}
+            : `Перерыв ${currTask.tomatoesPassed + 1}`}
         </span>
       </div>
       <div className="timer__body">

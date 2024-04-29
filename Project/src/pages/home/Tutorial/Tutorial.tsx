@@ -21,7 +21,21 @@ export function Tutorial() {
           Продолжайте работать &laquo;помидор&raquo;
           за&nbsp;&laquo;помидором&raquo;, пока задача не&nbsp;будут выполнена.
           Каждые 4&nbsp;&laquo;помидора&raquo; делайте длинный перерыв
-          (15-30&nbsp;минут).
+          (15-30&nbsp;минут)
+        </li>
+        <li className="tutorial__item">
+          Если вас отвлекли, вы&nbsp;можете поставить таймер на&nbsp;паузу,
+          и&nbsp;вернуться к задаче позже.
+        </li>
+        <li className="tutorial__item">
+          Если&nbsp;вы, поставив таймер на&nbsp;паузу, успели закончить задание,
+          вы&nbsp;можете пропустить его, нажав на&nbsp;кнопку
+          &laquo;Сделано&raquo;
+        </li>
+        <li className="tutorial__item">
+          &laquo;Помидоры&raquo; засчитываются только за&nbsp;таймеры,
+          завершенные &laquo;естественно&raquo; (то&nbsp;есть за&nbsp;те,
+          в&nbsp;которых вышло время).
         </li>
       </ul>
     </div>

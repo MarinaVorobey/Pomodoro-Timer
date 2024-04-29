@@ -40,6 +40,7 @@ export type TCurrentTask = {
   id: string;
   name: string;
   time: number;
+  passed: number;
   tomatoesPassed: number;
   tomatoesLeft: number;
   isPaused: boolean;
@@ -93,6 +94,7 @@ export const rootReducer: Reducer<
           id: state.tasks[0].id,
           name: action.name,
           time: TOMATO_TIME,
+          passed: 0,
           tomatoesPassed: 0,
           tomatoesLeft: 1,
           isPaused: false,
@@ -145,6 +147,7 @@ export const rootReducer: Reducer<
             id: state.tasks[0].id,
             name: state.tasks[0].name,
             time: TOMATO_TIME,
+            passed: 0,
             tomatoesPassed: 0,
             tomatoesLeft: state.tasks[0].tomatoes,
             isPaused: false,
@@ -164,6 +167,7 @@ export const rootReducer: Reducer<
     .addCase(TIMER_COUNT, (state) => {
       if (!state.currTask) return;
       state.currTask.time -= 1000;
+      state.currTask.passed += 1000;
       state.totalTime -= 1000;
     })
     .addCase(PAUSE_TIMER, (state) => {
@@ -194,6 +198,7 @@ export const rootReducer: Reducer<
               id: state.tasks[0].id,
               name: state.tasks[0].name,
               time: BREAK_TIME,
+              passed: 0,
               tomatoesPassed: 0,
               tomatoesLeft: state.tasks[0].tomatoes,
               isPaused: false,
@@ -238,6 +243,7 @@ export const rootReducer: Reducer<
           id: state.tasks[0].id,
           name: state.tasks[0].name,
           time: TOMATO_TIME,
+          passed: 0,
           tomatoesPassed: 0,
           tomatoesLeft: state.tasks[0].tomatoes,
           isPaused: false,
