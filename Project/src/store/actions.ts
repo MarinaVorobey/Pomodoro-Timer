@@ -1,4 +1,18 @@
 import { ActionCreator } from "@reduxjs/toolkit";
+import { RootState } from "./rootReducer";
+
+export const LOAD_SAVED_STATE = "LOAD_SAVED_STATE";
+export type LoadSavedStateAction = {
+  type: typeof LOAD_SAVED_STATE;
+  savedState: RootState;
+};
+
+export const loadSavedState: ActionCreator<LoadSavedStateAction> = (
+  savedState: RootState
+) => ({
+  type: LOAD_SAVED_STATE,
+  savedState: savedState,
+});
 
 export const ADD_TASK = "ADD_TASK";
 export type AddTaskAction = {

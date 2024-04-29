@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 import { Home } from "./pages/home/Home";
 import { TopNavbar } from "./ui/TopNavbar/TopNavbar";
 import { store } from "./store/store";
+import { LoadedStoreProvider } from "./util/LoadedStoreProvider";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <TopNavbar />
 
       <div className="container">
-        <Home />
+        <LoadedStoreProvider>
+          <Home />
+        </LoadedStoreProvider>
       </div>
     </Provider>
   );

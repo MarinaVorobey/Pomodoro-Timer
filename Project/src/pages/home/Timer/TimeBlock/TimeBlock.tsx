@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { FormatTimeTimer } from "../../../../util/FormatTimeTimer";
+import { formatTimeTimer } from "../../../../util/formatTimeTimer";
 import { TCurrentTask } from "../../../../store/rootReducer";
 import { Button } from "../../../../ui/Button";
 import { addTime } from "../../../../store/actions";
@@ -14,7 +14,7 @@ export function TimeBlock({ taskData }: TTimeBlockProps) {
   const time: number = taskData ? taskData.time : 0;
   const working = taskData ? !taskData.isPaused && !taskData.isStopped : false;
   const timer = useTimer(time, working);
-  const formattedTime = FormatTimeTimer(timer);
+  const formattedTime = formatTimeTimer(timer);
 
   return (
     <div className="timer__time-block">

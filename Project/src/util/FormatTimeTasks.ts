@@ -1,4 +1,4 @@
-export function FormatTimeTasks(time: number): string {
+export function formatTimeTasks(time: number): string {
   const hours = Math.floor(time / 3600000);
   if (hours > 0) {
     time = time % 3600000;

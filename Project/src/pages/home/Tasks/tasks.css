@@ -54,6 +54,7 @@
 }
 
 .tasks__item {
+  overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
