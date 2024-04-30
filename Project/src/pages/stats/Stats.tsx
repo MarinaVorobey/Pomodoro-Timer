@@ -1,4 +1,5 @@
 import { MainStatsBlock } from "./MainStatsBlock/MainStatsBlock";
+import { StatCards } from "./StatCards/StatCards";
 import { TimePeriodMenu } from "./TimePeriodMenu/TimePeriodMenu";
 import "./stats.css";
 
@@ -10,6 +11,7 @@ export function Stats() {
         <TimePeriodMenu />
       </div>
       <MainStatsBlock />
+      <StatCards />
     </main>
   );
 }

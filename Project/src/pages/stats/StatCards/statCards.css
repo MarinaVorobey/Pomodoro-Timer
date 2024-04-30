@@ -1,0 +1,70 @@
+/* StatCards */
+.stats__cards {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 3%;
+}
+
+.cards__item {
+  width: 33%;
+}
+
+.stats-card {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.focus {
+  background-color: var(--light-yellow);
+}
+
+.focus svg path {
+  stroke: var(--yellow);
+}
+
+.alarm-clock {
+  background-color: var(--light-purple);
+}
+
+.alarm-clock svg path {
+  stroke: var(--purple);
+}
+
+.cancel {
+  background-color: var(--light-blue);
+}
+
+.cancel svg path {
+  stroke: var(--blue);
+}
+
+.stats-card--default {
+  background-color: var(--beige);
+}
+
+.stats-card__icon--default svg path {
+  stroke: var(--greyC4);
+}
+
+.stats-card__text-block {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+.stats-card__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.stats-card__text {
+  margin: 0;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+}

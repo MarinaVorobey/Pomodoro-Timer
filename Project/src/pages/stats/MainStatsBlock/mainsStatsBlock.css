@@ -74,7 +74,3 @@
   color: var(--white);
   background-color: var(--red);
 }
-
-.stats__right {
-  background-color: var(--greyC4);
-}

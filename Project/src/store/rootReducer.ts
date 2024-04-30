@@ -170,6 +170,7 @@ export const rootReducer: Reducer<
       state.currTask.time -= 1000;
       state.currTask.passed += 1000;
       state.totalTime -= 1000;
+      saveToStorage(state);
     })
     .addCase(PAUSE_TIMER, (state) => {
       if (!state.currTask) return;

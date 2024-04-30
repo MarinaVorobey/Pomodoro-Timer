@@ -19,7 +19,7 @@ export function Tutorial() {
         </li>
         <li className="tutorial__item">
           Продолжайте работать &laquo;помидор&raquo;
-          за&nbsp;&laquo;помидором&raquo;, пока задача не&nbsp;будут выполнена.
+          за&nbsp;&laquo;помидором&raquo;, пока задача не&nbsp;будет выполнена.
           Каждые 4&nbsp;&laquo;помидора&raquo; делайте длинный перерыв
           (15-30&nbsp;минут)
         </li>

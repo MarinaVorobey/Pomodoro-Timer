@@ -16,6 +16,9 @@
   --blue: #7FC2D7;
   --purple: #9C97D7;
   --yellow: #FFAE35;
+  --light-yellow: #FFDDA9;
+  --light-purple: #DFDCFE;
+  --light-blue: #C5F1FF;
 }
 
 @font-face {
@@ -163,7 +166,7 @@ button {
 
 .header {
   padding: 15px 80px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   box-shadow: 0px 10px 63px 0px #00000012;
 }
 
