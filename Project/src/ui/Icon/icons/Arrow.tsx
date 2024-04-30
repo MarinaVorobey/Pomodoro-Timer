@@ -11,7 +11,7 @@ export function Arrow() {
         d="M15 1L8 8L1 1"
         /* colored in B7 */
         stroke="none"
-        stroke-width="2"
+        strokeWidth="2"
       />
     </svg>
   );

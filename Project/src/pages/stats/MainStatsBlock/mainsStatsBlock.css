@@ -1,0 +1,80 @@
+/* MainStatsBlock */
+.stats__main-block {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 5%;
+}
+
+.stats__left {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 32px;
+  width: 20%;
+}
+
+.stats__right {
+  width: 75%;
+}
+
+.curr-day {
+  min-height: 260px;
+  padding: 25px;
+  background-color: var(--beige);
+}
+
+.curr-day__title {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.curr-day__paragraph {
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.curr-day__time {
+  font-weight: 700;
+  color: var(--red);
+}
+
+.curr-tomatoes {
+  height: 180px;
+  background-color: var(--beige);
+}
+
+.curr-tomatoes__image-block {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 130px;
+}
+
+.curr-tomatoes__img {
+  width: 81px;
+  height: 81px;
+}
+
+.curr-tomatoes__count1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--grey99);
+}
+
+.curr-tomatoes__count2 {
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  background-color: var(--red);
+}
+
+.stats__right {
+  background-color: var(--greyC4);
+}

@@ -3,7 +3,7 @@ import "./tutorial.css";
 export function Tutorial() {
   return (
     <div className="tutorial">
-      <h3 className="tutorial__title">Ура! Теперь можно начать работать:</h3>
+      <h3 className="home__title">Ура! Теперь можно начать работать:</h3>
       <ul className="tutorial__list">
         <li className="tutorial__item">
           Выберите категорию и&nbsp;напишите название текущей задачи
@@ -30,7 +30,8 @@ export function Tutorial() {
         <li className="tutorial__item">
           Если&nbsp;вы, поставив таймер на&nbsp;паузу, успели закончить задание,
           вы&nbsp;можете пропустить его, нажав на&nbsp;кнопку
-          &laquo;Сделано&raquo;
+          &laquo;Сделано&raquo;. Если вы хотите перезапустить таймер, нажмите на
+          "Стоп"
         </li>
         <li className="tutorial__item">
           &laquo;Помидоры&raquo; засчитываются только за&nbsp;таймеры,

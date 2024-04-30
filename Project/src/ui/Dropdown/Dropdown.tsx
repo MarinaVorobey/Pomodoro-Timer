@@ -8,6 +8,7 @@ type TDropdownProps = {
   onClose?: () => void;
   leftShift?: number;
   topShift?: number;
+  showTopPointer?: boolean;
 };
 
 export function Dropdown({
@@ -16,6 +17,7 @@ export function Dropdown({
   onClose,
   leftShift,
   topShift,
+  showTopPointer,
 }: TDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -46,6 +48,7 @@ export function Dropdown({
           }}
           children={children}
           containerRef={containerRef}
+          showTopPointer={showTopPointer}
         />
       )}
     </div>

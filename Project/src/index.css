@@ -133,7 +133,7 @@ button {
   background-color: var(--white);
 }
 
-.dropdown__list:before {
+.dropdown-pointer:before {
   content: "";
   display: block;
   position: absolute;
@@ -146,7 +146,7 @@ button {
   border-bottom-color: var(--greyC4);
 }
 
-.dropdown__list:after {
+.dropdown-pointer:after {
   content: "";
   display: block;
   position: absolute;

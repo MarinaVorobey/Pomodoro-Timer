@@ -100,6 +100,7 @@ export function TaskItem({ id, tomatoes, name }: TTaskItemProps) {
         children={<GenericList list={optionsList} />}
         leftShift={-71}
         topShift={14}
+        showTopPointer={true}
       />
       {modalOpen ? (
         <Modal children={modalType} onClose={() => setModalOpen(false)} />

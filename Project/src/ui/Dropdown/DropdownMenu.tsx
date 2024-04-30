@@ -10,6 +10,7 @@ type TDropdownMenuProps = {
   onClose: () => void;
   children: React.ReactNode;
   containerRef: React.RefObject<HTMLDivElement>;
+  showTopPointer?: boolean;
 };
 
 export function DropdownMenu({
@@ -17,6 +18,7 @@ export function DropdownMenu({
   onClose,
   children,
   containerRef,
+  showTopPointer,
 }: TDropdownMenuProps) {
   const dropdownRoot = document.getElementById("dropdown-root");
   useCloseByClickout(containerRef, onClose);
@@ -25,7 +27,13 @@ export function DropdownMenu({
   return (
     <div className="dropdown__container">
       {ReactDOM.createPortal(
-        <div style={coords} className="dropdown__list" onClick={onClose}>
+        <div
+          style={coords}
+          className={`dropdown__list${
+            showTopPointer ? " dropdown-pointer" : ""
+          }`}
+          onClick={onClose}
+        >
           {children}
         </div>,
         dropdownRoot
