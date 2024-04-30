@@ -6,6 +6,7 @@ import { RootState } from "../../../store/rootReducer";
 
 export function Timer() {
   const currTask = useSelector((state: RootState) => state.currTask);
+  const totalTomatoes = useSelector((state: RootState) => state.totalTomatoes);
 
   return (
     <div className="timer">
@@ -26,7 +27,7 @@ export function Timer() {
             ? ""
             : currTask.mode !== "break"
             ? `Помидор ${currTask.tomatoesPassed + 1}`
-            : `Перерыв ${currTask.tomatoesPassed + 1}`}
+            : `Перерыв ${totalTomatoes}`}
         </span>
       </div>
       <div className="timer__body">

@@ -1,3 +1,4 @@
+import { Switch } from "../Switch/Switch";
 import { MainLink } from "./MainLink/MainLink";
 import { StatsLink } from "./StatsLink/StatsLink";
 
@@ -6,7 +7,10 @@ export function TopNavbar() {
     <header className="header">
       <nav className="header__nav">
         <MainLink />
-        <StatsLink />
+        <div className="header__right-controls">
+          <Switch />
+          <StatsLink />
+        </div>
       </nav>
     </header>
   );

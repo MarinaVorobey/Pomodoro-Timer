@@ -71,6 +71,7 @@ const initialState: RootState = {
 
 const TOMATO_TIME = 150000;
 const BREAK_TIME = 300000;
+const LONG_BREAK_TIME = 900000;
 
 export const rootReducer: Reducer<
   RootState,
@@ -187,6 +188,7 @@ export const rootReducer: Reducer<
       if (task.mode === "work") {
         task.tomatoesLeft--;
         state.tasks[0].tomatoes--;
+        state.totalTomatoes++;
         task.tomatoesPassed++;
 
         if (task.tomatoesLeft === 0) {
@@ -197,7 +199,10 @@ export const rootReducer: Reducer<
             state.currTask = {
               id: state.tasks[0].id,
               name: state.tasks[0].name,
-              time: BREAK_TIME,
+              time:
+                state.totalTomatoes !== 0 && state.totalTomatoes % 4 === 0
+                  ? LONG_BREAK_TIME
+                  : BREAK_TIME,
               passed: 0,
               tomatoesPassed: 0,
               tomatoesLeft: state.tasks[0].tomatoes,
@@ -207,6 +212,7 @@ export const rootReducer: Reducer<
             };
           }
         } else {
+          task.passed = 0;
           task.mode = "break";
           task.time = BREAK_TIME;
         }
@@ -222,6 +228,7 @@ export const rootReducer: Reducer<
       state.currTask.isStopped = true;
       state.totalTime -= state.currTask.time;
       state.totalTime += TOMATO_TIME;
+      state.currTask.passed = 0;
       state.currTask.time = TOMATO_TIME;
     })
     .addCase(SKIP_BREAK, (state) => {
@@ -229,6 +236,7 @@ export const rootReducer: Reducer<
       state.currTask.isPaused = false;
       state.currTask.isStopped = true;
       state.currTask.time = TOMATO_TIME;
+      state.currTask.passed = 0;
       state.currTask.mode = "work";
     })
     .addCase(SKIP_TASK, (state) => {

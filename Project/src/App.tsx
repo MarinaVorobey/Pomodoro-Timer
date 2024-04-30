@@ -3,6 +3,16 @@ import { Home } from "./pages/home/Home";
 import { TopNavbar } from "./ui/TopNavbar/TopNavbar";
 import { store } from "./store/store";
 import { LoadedStoreProvider } from "./util/LoadedStoreProvider";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Stats } from "./pages/stats/Stats";
+
+const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  {
+    path: "statistics",
+    element: <Stats />,
+  },
+]);
 
 function App() {
   return (
@@ -12,7 +22,7 @@ function App() {
 
       <div className="container">
         <LoadedStoreProvider>
-          <Home />
+          <RouterProvider router={router} />
         </LoadedStoreProvider>
       </div>
     </Provider>

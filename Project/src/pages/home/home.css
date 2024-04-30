@@ -2,7 +2,6 @@
   display: flex;
   flex-flow: row nowrap;
   gap: 3%;
-  padding-bottom: 150px;
 }
 
 .main__left {
