@@ -21,6 +21,27 @@
   --light-blue: #C5F1FF;
 }
 
+[data-theme="dark"] {
+  --green: #A8B64F;
+  --dark-green: #899441;
+  --white: #333333;
+  --black: #FFFFFF;
+  --beige: #3E3938;
+  --pink: #EA8979;
+  --light-red: #EE735D;
+  --red: #DC3E22;
+  --dark-red: #B7280F;
+  --greyC4: #C4C4C4;
+  --grey99: #999999;
+  --greyE4: #E4E4E4;
+  --blue: #7FC2D7;
+  --purple: #9C97D7;
+  --yellow: #FFAE35;
+  --light-yellow: #FFDDA9;
+  --light-purple: #DFDCFE;
+  --light-blue: #C5F1FF;
+}
+
 @font-face {
   font-family: 'SFUIDisplay';
   src: url('/fonts/SFUIDisplay-Ultralight.woff2') format(woff2),
@@ -69,7 +90,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: var(--white);
+  background-color: light-dark(var(--white), var(--black));
   font-family: SFUIDisplay, sans-serif;
   font-size: 14px;
   line-height: 16px;

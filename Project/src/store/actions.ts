@@ -14,6 +14,15 @@ export const loadSavedState: ActionCreator<LoadSavedStateAction> = (
   savedState: savedState,
 });
 
+export const SWITCH_THEME = "SWITCH_THEME";
+export type SwitchThemeAction = {
+  type: typeof SWITCH_THEME;
+};
+
+export const switchTheme: ActionCreator<SwitchThemeAction> = () => ({
+  type: SWITCH_THEME,
+});
+
 export const ADD_TASK = "ADD_TASK";
 export type AddTaskAction = {
   type: typeof ADD_TASK;

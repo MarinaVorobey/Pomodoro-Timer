@@ -19,6 +19,8 @@ import {
   SKIP_TASK,
   START_TIMER,
   STOP_TIMER,
+  SWITCH_THEME,
+  SwitchThemeAction,
   TIMER_COUNT,
   TaskActions,
   TimerActions,
@@ -49,6 +51,7 @@ export type TCurrentTask = {
 };
 
 export type RootState = {
+  theme: "light" | "dark";
   totalTime: number;
   totalTomatoes: number;
   maxId: number;
@@ -61,6 +64,7 @@ export type RootState = {
 };
 
 const initialState: RootState = {
+  theme: "light",
   totalTime: 0,
   totalTomatoes: 0,
   maxId: 1,
@@ -75,13 +79,21 @@ const LONG_BREAK_TIME = 900000;
 
 export const rootReducer: Reducer<
   RootState,
-  TaskActions | TimerActions | LoadSavedStateAction
+  TaskActions | TimerActions | LoadSavedStateAction | SwitchThemeAction
 > = createReducer(initialState, (builder) => {
   builder
+    /* Global */
     .addCase(LOAD_SAVED_STATE, (state, action: LoadSavedStateAction) => {
       const loadedState = action.savedState;
       Object.assign(state, loadedState);
     })
+    .addCase(SWITCH_THEME, (state) => {
+      state.theme = state.theme === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", state.theme);
+      saveToStorage(state);
+    })
+
+    /* Tasks */
     .addCase(ADD_TASK, (state, action: AddTaskAction) => {
       state.tasks.push({
         id: `${state.maxId}`,
@@ -159,6 +171,8 @@ export const rootReducer: Reducer<
       }
       saveToStorage(state);
     })
+
+    /* Timer */
     .addCase(ADD_TIME, (state) => {
       if (!state.currTask) return;
       state.currTask.time += 60000;
