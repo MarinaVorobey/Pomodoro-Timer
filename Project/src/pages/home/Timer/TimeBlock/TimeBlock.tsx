@@ -3,7 +3,6 @@ import { formatTimeTimer } from "../../../../util/formatTimeTimer";
 import { TCurrentTask } from "../../../../store/rootReducer";
 import { Button } from "../../../../ui/Button";
 import { addTime } from "../../../../store/actions";
-import { useTimer } from "../../../../hooks/useTimer";
 import { calculateCircleDasharray } from "../../../../util/calculateCircleDasharray";
 
 type TTimeBlockProps = {
@@ -15,11 +14,8 @@ export function TimeBlock({ taskData }: TTimeBlockProps) {
 
   const time = taskData ? taskData.time : 0;
   const passedTime = taskData ? taskData.passed : 0;
-  const working = taskData ? !taskData.isPaused && !taskData.isStopped : false;
   const circle = calculateCircleDasharray(time, passedTime);
-
-  const timer = useTimer(time, working);
-  const formattedTime = formatTimeTimer(timer);
+  const formattedTime = formatTimeTimer(time);
 
   return (
     <div className="timer__time-block">

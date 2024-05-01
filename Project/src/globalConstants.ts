@@ -1,9 +1,9 @@
 export enum colorsLight {
   green = "#A8B64F",
   darkGreen = "#899441",
-  white = "#FFFFFF",
-  black = "#333333",
-  beige = "#F4F4F4",
+  bgColor = "#FFFFFF",
+  textColor = "#333333",
+  lighterTone = "#F4F4F4",
   pink = "#EA8979",
   lightRed = "#EE735D",
   red = "#DC3E22",
@@ -17,4 +17,10 @@ export enum colorsLight {
   lightYellow = "#FFDDA9",
   lightPurple = "#DFDCFE",
   lightBlue = "#C5F1FF",
+}
+
+export enum colorsDark {
+  bgColor = "#333333",
+  textColor = "#FFFFFF",
+  lighterTone = "#3E3938",
 }

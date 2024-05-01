@@ -32,13 +32,13 @@
   margin: 0;
   font-size: 16px;
   font-weight: 700;
-  color: var(--white);
+  color: var(--bg-color);
 }
 
 .timer_num {
   font-size: 16px;
   font-weight: 400;
-  color: var(--white);
+  color: var(--bg-color);
 }
 
 .timer__body {
@@ -47,7 +47,7 @@
   justify-content: center;
   align-items: center;
   min-height: 650px;
-  background-color: var(--beige);
+  background-color: var(--lighter-tone);
 }
 
 .timer__time-block {
@@ -105,7 +105,7 @@
 }
 
 .timer__time--stopped {
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .timer__time--work {
@@ -136,7 +136,7 @@
 }
 
 .timer__add-icon svg path {
-  fill: var(--white);
+  fill: var(--bg-color);
 }
 
 .timer__add:disabled {
@@ -164,7 +164,7 @@
 }
 
 .timer__task-name {
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .timer__controls {
@@ -178,7 +178,7 @@
   padding: 20px 50px;
   font-size: 16px;
   font-weight: 500;
-  color: var(--white);
+  color: var(--bg-color);
   background-color: var(--green);
   transition: background-color 0.3s ease-in-out;
 }
@@ -202,12 +202,12 @@
 }
 
 .timer__stop:focus {
-  color: var(--white);
+  color: var(--bg-color);
   background-color: var(--red);
 }
 
 .timer__stop:hover {
-  color: var(--white);
+  color: var(--bg-color);
   background-color: var(--red);
 }
 
@@ -220,11 +220,11 @@
 }
 
 .timer__btn:disabled:focus {
-  color: var(--white);
+  color: var(--bg-color);
   background-color: var(--greyC4);
 }
 
 .timer__btn:disabled:hover {
-  color: var(--white);
+  color: var(--bg-color);
   background-color: var(--greyC4);
 }

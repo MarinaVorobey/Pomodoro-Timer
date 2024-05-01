@@ -3,9 +3,9 @@
 
   --green: #A8B64F;
   --dark-green: #899441;
-  --white: #FFFFFF;
-  --black: #333333;
-  --beige: #F4F4F4;
+  --bg-color: #FFFFFF;
+  --text-color: #333333;
+  --lighter-tone: #F4F4F4;
   --pink: #EA8979;
   --light-red: #EE735D;
   --red: #DC3E22;
@@ -22,24 +22,9 @@
 }
 
 [data-theme="dark"] {
-  --green: #A8B64F;
-  --dark-green: #899441;
-  --white: #333333;
-  --black: #FFFFFF;
-  --beige: #3E3938;
-  --pink: #EA8979;
-  --light-red: #EE735D;
-  --red: #DC3E22;
-  --dark-red: #B7280F;
-  --greyC4: #C4C4C4;
-  --grey99: #999999;
-  --greyE4: #E4E4E4;
-  --blue: #7FC2D7;
-  --purple: #9C97D7;
-  --yellow: #FFAE35;
-  --light-yellow: #FFDDA9;
-  --light-purple: #DFDCFE;
-  --light-blue: #C5F1FF;
+  --bg-color: #333333;
+  --text-color: #FFFFFF;
+  --lighter-tone: #3E3938;
 }
 
 @font-face {
@@ -90,14 +75,14 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: light-dark(var(--white), var(--black));
+  background-color: var(--bg-color);
   font-family: SFUIDisplay, sans-serif;
   font-size: 14px;
   line-height: 16px;
 }
 
 * {
-  color: var(--black);
+  color: var(--text-color);
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -154,7 +139,7 @@ button {
   display: flex;
   flex-flow: column wrap;
   border: var(--black);
-  background-color: var(--white);
+  background-color: var(--bg-color);
 }
 
 .dropdown-pointer:before {
@@ -180,7 +165,7 @@ button {
   width: 0;
   height: 0;
   border: 9px solid transparent;
-  border-bottom-color: var(--white);
+  border-bottom-color: var(--bg-color);
 }
 
 /* Header */
@@ -273,7 +258,7 @@ button {
   left: 50%;
   width: 450px;
   max-height: 77%;
-  background-color: var(--white);
+  background-color: var(--bg-color);
   transform: translate(-50%, -50%);
   animation-name: animatetop;
   animation-duration: 0.4s
@@ -325,7 +310,7 @@ button {
   width: 60px;
   height: 32px;
   border: 2px solid var(--grey99);
-  background-color: var(--white);
+  background-color: var(--bg-color);
   border-radius: 30px;
   cursor: pointer;
 }
@@ -351,5 +336,5 @@ button {
 }
 
 .switch-icon svg path {
-  fill: var(--black);
+  fill: var(--text-color);
 }

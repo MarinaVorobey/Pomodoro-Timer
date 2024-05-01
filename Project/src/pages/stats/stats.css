@@ -17,7 +17,7 @@
   margin: 0;
   font-size: 24px;
   font-weight: 700;
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .stats-menu__btn {
@@ -30,7 +30,7 @@
   font-family: SFUIDisplay, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  background-color: var(--beige);
+  background-color: var(--lighter-tone);
 }
 
 .stats-menu__btn svg path {
@@ -48,7 +48,7 @@
   font-family: SFUIDisplay, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  background-color: var(--beige);
+  background-color: var(--lighter-tone);
 }
 
 .stats-menu__option:not(:last-child) {

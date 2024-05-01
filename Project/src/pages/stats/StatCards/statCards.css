@@ -42,7 +42,7 @@
 }
 
 .stats-card--default {
-  background-color: var(--beige);
+  background-color: var(--lighter-tone);
 }
 
 .stats-card__icon--default svg path {
