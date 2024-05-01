@@ -1,4 +1,5 @@
-import "./mainsStatsBlock.css";
+import { Chart } from "./Chart/Chart";
+import "./mainStatsBlock.css";
 
 export function MainStatsBlock() {
   return (
@@ -20,7 +21,9 @@ export function MainStatsBlock() {
           <p className="curr-tomatoes__count2">2 помидора</p>
         </div>
       </div>
-      <div className="stats__right"></div>
+      <div className="stats__right">
+        <Chart />
+      </div>
     </div>
   );
 }

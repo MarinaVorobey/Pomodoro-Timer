@@ -2,7 +2,7 @@
 .stats__cards {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  align-items: baseline;
   gap: 3%;
 }
 

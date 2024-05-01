@@ -8,12 +8,13 @@
 .stats__left {
   display: flex;
   flex-flow: column nowrap;
-  gap: 32px;
+  justify-content: space-between;
   width: 20%;
 }
 
 .stats__right {
   width: 75%;
+  background-color: var(--beige);
 }
 
 .curr-day {

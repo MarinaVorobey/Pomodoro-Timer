@@ -18,21 +18,21 @@ export function TimePeriodMenu() {
 
   const optionsList: TGenericItem[] = [
     {
-      onClick: moveArrow,
+      onClick: () => {},
       className: "stats-menu__option",
       element: "Эта неделя",
       id: "1",
       As: "button",
     },
     {
-      onClick: moveArrow,
+      onClick: () => {},
       className: "stats-menu__option",
       element: "Прошедшая неделя",
       id: "2",
       As: "button",
     },
     {
-      onClick: moveArrow,
+      onClick: () => {},
       className: "stats-menu__option",
       element: "2 недели назад",
       id: "3",
@@ -41,6 +41,10 @@ export function TimePeriodMenu() {
   ];
 
   return (
-    <Dropdown button={menuBtn} children={<GenericList list={optionsList} />} />
+    <Dropdown
+      button={menuBtn}
+      children={<GenericList list={optionsList} />}
+      onClose={moveArrow}
+    />
   );
 }
