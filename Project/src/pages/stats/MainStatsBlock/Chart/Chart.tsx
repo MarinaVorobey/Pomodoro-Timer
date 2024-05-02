@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { colorsDark, colorsLight } from "../../../../globalConstants";
-import { formatTimeTasks } from "../../../../util/formatTimeTasks";
+import { formatTimeTasks } from "../../../../util/format/formatTimeTasks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/rootReducer";
 

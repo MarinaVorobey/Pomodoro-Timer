@@ -4,7 +4,7 @@ import { TGenericItem } from "../../../util/GenericList";
 import { TaskItem } from "./TaskList/TaskItem/TaskItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/rootReducer";
-import { formatTimeTasks } from "../../../util/formatTimeTasks";
+import { formatTimeTasks } from "../../../util/format/formatTimeTasks";
 import "./tasks.css";
 
 export function Tasks() {

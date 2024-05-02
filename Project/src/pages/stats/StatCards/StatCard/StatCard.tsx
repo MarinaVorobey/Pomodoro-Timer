@@ -11,7 +11,7 @@ export function StatCard({ title, iconType, text, hasInfo }: TStatCardProps) {
   return (
     <div
       className={`stats-card ${iconType}${
-        hasInfo ? " stats-card--default" : ""
+        !hasInfo ? " stats-card--default" : ""
       }`}
     >
       <div className="stats-card__text-block">
@@ -21,7 +21,9 @@ export function StatCard({ title, iconType, text, hasInfo }: TStatCardProps) {
       <Icon
         type={iconType}
         className={
-          hasInfo ? "stats-card__icon--default" : `stats-card__icon ${iconType}`
+          !hasInfo
+            ? "stats-card__icon--default"
+            : `stats-card__icon ${iconType}`
         }
       />
     </div>

@@ -1,15 +1,32 @@
+import { TDailyStats } from "../../../store/rootReducer";
 import { GenericList, TGenericItem } from "../../../util/GenericList";
+import { formatTimePauseCard } from "../../../util/format/formatTimePauseCard";
 import { StatCard } from "./StatCard/StatCard";
 import "./statCards.css";
 
 const NOOP = () => {};
 
-export function StatCards() {
+type TStatCardsProps = {
+  statsInfo: TDailyStats | null;
+};
+
+export function StatCards({ statsInfo }: TStatCardsProps) {
   const cards: TGenericItem[] = [
     {
       onClick: NOOP,
       element: (
-        <StatCard title="Фокус" iconType="focus" text="27%" hasInfo={false} />
+        <StatCard
+          title="Фокус"
+          iconType="focus"
+          text={
+            !statsInfo
+              ? "0%"
+              : `${Math.floor(
+                  (statsInfo.tomatoesCompletedTime / statsInfo.workTime) * 100
+                )}%`
+          }
+          hasInfo={statsInfo !== null}
+        />
       ),
       className: "cards__item",
       id: "1",
@@ -21,8 +38,8 @@ export function StatCards() {
         <StatCard
           title="Время на паузе"
           iconType="alarm-clock"
-          text="2ч 30м"
-          hasInfo={false}
+          text={!statsInfo ? "0м" : formatTimePauseCard(statsInfo.pausedTime)}
+          hasInfo={statsInfo !== null}
         />
       ),
       className: "cards__item",
@@ -35,8 +52,8 @@ export function StatCards() {
         <StatCard
           title="Остановки"
           iconType="cancel"
-          text="14"
-          hasInfo={false}
+          text={!statsInfo ? "0" : statsInfo.cancelled.toString()}
+          hasInfo={statsInfo !== null}
         />
       ),
       className: "cards__item",

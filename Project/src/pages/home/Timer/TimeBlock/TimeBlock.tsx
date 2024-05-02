@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { formatTimeTimer } from "../../../../util/formatTimeTimer";
+import { formatTimeTimer } from "../../../../util/format/formatTimeTimer";
 import { TCurrentTask } from "../../../../store/rootReducer";
 import { Button } from "../../../../ui/Button";
 import { addTime } from "../../../../store/actions";

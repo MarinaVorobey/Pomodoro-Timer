@@ -36,7 +36,7 @@ type TTask = {
   tomatoes: number;
 };
 
-type TDailyStats = {
+export type TDailyStats = {
   weekDay: number;
   pausedTime: number;
   tomatoesCompletedTime: number;
@@ -71,6 +71,10 @@ export type RootState = {
   stats: {
     [N: string]: TDailyStats;
   };
+  statsControls: {
+    targetDate: string;
+    sortWeek: number;
+  };
 };
 
 const initialState: RootState = {
@@ -81,6 +85,10 @@ const initialState: RootState = {
   tasks: [],
   currTask: null,
   stats: {},
+  statsControls: {
+    targetDate: "",
+    sortWeek: 0,
+  },
 };
 
 const TOMATO_TIME = 150000;
@@ -207,7 +215,7 @@ export const rootReducer: Reducer<
       if (state.currTask.mode === "work") {
         state.totalTime -= 1000;
         if (state.stats[state.currDay]) {
-          state.stats[state.currDay].workTime++;
+          state.stats[state.currDay].workTime += 1000;
         }
       }
       saveToStorage(state);
@@ -290,6 +298,7 @@ export const rootReducer: Reducer<
       state.currTask.passed = 0;
       state.currTask.time = TOMATO_TIME;
       if (state.stats[state.currDay]) state.stats[state.currDay].cancelled++;
+      saveToStorage(state);
     })
     .addCase(SKIP_BREAK, (state) => {
       if (!state.currTask) return;
@@ -339,6 +348,7 @@ export const rootReducer: Reducer<
           cancelled: 0,
         };
       }
+      state.statsControls.targetDate = action.date;
       for (const key of action.clean) {
         delete state.stats[key];
       }
