@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { completeTimer, timerCount } from "../store/actions";
+import { completeTimer, pauseCount, timerCount } from "../store/actions";
 
-export function useTimer(time: number, working: boolean) {
+export function useTimer(time: number, stopped: boolean, paused: boolean) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!working) {
+    if (stopped) {
       return;
     }
     if (time <= 0) {
@@ -15,11 +15,13 @@ export function useTimer(time: number, working: boolean) {
     }
 
     const interval = setInterval(() => {
-      dispatch(timerCount());
+      if (paused) {
+        dispatch(pauseCount());
+      } else {
+        dispatch(timerCount());
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [time, dispatch, working]);
-
-  return time;
+  }, [time, dispatch, stopped, paused]);
 }

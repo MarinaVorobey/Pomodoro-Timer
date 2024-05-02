@@ -6,7 +6,9 @@ import { RootState } from "../../../store/rootReducer";
 
 export function Timer() {
   const currTask = useSelector((state: RootState) => state.currTask);
-  const totalTomatoes = useSelector((state: RootState) => state.totalTomatoes);
+  const totalTomatoes = useSelector((state: RootState) =>
+    state.stats[state.currDay] ? state.stats[state.currDay].tomatoes : 0
+  );
 
   return (
     <div className="timer">
@@ -34,7 +36,7 @@ export function Timer() {
         <TimeBlock taskData={currTask} />
         {currTask ? (
           <p className="timer__task">
-            <span className="timer__task-num">{`Задача ${currTask.id} - `}</span>
+            <span className="timer__task-num">{`Задача ${currTask.taskNum} - `}</span>
             <span className="timer__task-name">{currTask.name}</span>
           </p>
         ) : null}

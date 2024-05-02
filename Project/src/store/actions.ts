@@ -120,6 +120,15 @@ export const pauseTimer: ActionCreator<PauseTimerAction> = () => ({
   type: PAUSE_TIMER,
 });
 
+export const PAUSE_COUNT = "PAUSE_COUNT";
+export type PauseCountAction = {
+  type: typeof PAUSE_COUNT;
+};
+
+export const pauseCount: ActionCreator<PauseCountAction> = () => ({
+  type: PAUSE_COUNT,
+});
+
 export const START_TIMER = "START_TIMER";
 export type StartTimerAction = {
   type: typeof START_TIMER;
@@ -172,4 +181,27 @@ export type TimerActions =
   | StartTimerAction
   | CompleteTimerAction
   | StopTimerAction
-  | SkipBreakAction;
+  | SkipBreakAction
+  | PauseCountAction;
+
+/* Daily stats actions */
+export const UPDATE_CURR_DATE = "UPDATE_CURR_DATE";
+export type updateCurrDateAction = {
+  type: typeof UPDATE_CURR_DATE;
+  date: string;
+  weekDay: number;
+  clean: string[];
+};
+
+export const updateCurrDate: ActionCreator<updateCurrDateAction> = (
+  date: string,
+  weekDay: number,
+  clean: string[]
+) => ({
+  type: UPDATE_CURR_DATE,
+  date: date,
+  weekDay: weekDay,
+  clean: clean,
+});
+
+export type StatsActions = updateCurrDateAction;

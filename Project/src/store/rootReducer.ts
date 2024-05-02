@@ -10,6 +10,7 @@ import {
   DeleteTaskAction,
   LOAD_SAVED_STATE,
   LoadSavedStateAction,
+  PAUSE_COUNT,
   PAUSE_TIMER,
   REMOVE_TOMATO,
   RENAME_TASK,
@@ -24,6 +25,8 @@ import {
   TIMER_COUNT,
   TaskActions,
   TimerActions,
+  UPDATE_CURR_DATE,
+  updateCurrDateAction,
 } from "./actions";
 import { saveToStorage } from "../util/saveToStorage";
 
@@ -34,17 +37,24 @@ type TTask = {
 };
 
 type TDailyStats = {
+  weekDay: number;
+  pausedTime: number;
+  tomatoesCompletedTime: number;
+  workTime: number;
   tomatoes: number;
   cancelled: number;
 };
 
 export type TCurrentTask = {
   id: string;
+  taskNum: number;
   name: string;
   time: number;
+  totalTaskTime: number;
   passed: number;
   tomatoesPassed: number;
   tomatoesLeft: number;
+  timeOfPause: number;
   isPaused: boolean;
   isStopped: boolean;
   mode: "work" | "break";
@@ -52,8 +62,8 @@ export type TCurrentTask = {
 
 export type RootState = {
   theme: "light" | "dark";
+  currDay: string;
   totalTime: number;
-  totalTomatoes: number;
   maxId: number;
   tasks: TTask[];
   currTask: TCurrentTask | null;
@@ -65,8 +75,8 @@ export type RootState = {
 
 const initialState: RootState = {
   theme: "light",
+  currDay: "",
   totalTime: 0,
-  totalTomatoes: 0,
   maxId: 1,
   tasks: [],
   currTask: null,
@@ -105,8 +115,11 @@ export const rootReducer: Reducer<
       if (!state.currTask) {
         state.currTask = {
           id: state.tasks[0].id,
+          taskNum: 1,
           name: action.name,
+          totalTaskTime: TOMATO_TIME,
           time: TOMATO_TIME,
+          timeOfPause: 0,
           passed: 0,
           tomatoesPassed: 0,
           tomatoesLeft: 1,
@@ -140,6 +153,7 @@ export const rootReducer: Reducer<
       if (!task || task.tomatoes <= 1) return;
       task.tomatoes--;
       state.totalTime -= TOMATO_TIME;
+
       if (action.id === state.currTask?.id) {
         state.currTask.tomatoesLeft--;
       }
@@ -158,8 +172,11 @@ export const rootReducer: Reducer<
         } else {
           state.currTask = {
             id: state.tasks[0].id,
+            taskNum: state.currTask.taskNum,
             name: state.tasks[0].name,
+            totalTaskTime: TOMATO_TIME,
             time: TOMATO_TIME,
+            timeOfPause: 0,
             passed: 0,
             tomatoesPassed: 0,
             tomatoesLeft: state.tasks[0].tomatoes,
@@ -176,14 +193,31 @@ export const rootReducer: Reducer<
     .addCase(ADD_TIME, (state) => {
       if (!state.currTask) return;
       state.currTask.time += 60000;
-      state.totalTime += 60000;
+      state.currTask.totalTaskTime += 60000;
+      if (state.currTask.mode === "work") {
+        state.stats[state.currDay].workTime += 60000;
+        state.totalTime += 60000;
+      }
       saveToStorage(state);
     })
     .addCase(TIMER_COUNT, (state) => {
       if (!state.currTask) return;
       state.currTask.time -= 1000;
       state.currTask.passed += 1000;
-      state.totalTime -= 1000;
+      if (state.currTask.mode === "work") {
+        state.totalTime -= 1000;
+        if (state.stats[state.currDay]) {
+          state.stats[state.currDay].workTime++;
+        }
+      }
+      saveToStorage(state);
+    })
+    .addCase(PAUSE_COUNT, (state) => {
+      if (!state.currTask) return;
+      const currDay = state.stats[state.currDay];
+      if (currDay) {
+        currDay.pausedTime += 1000;
+      }
       saveToStorage(state);
     })
     .addCase(PAUSE_TIMER, (state) => {
@@ -200,10 +234,14 @@ export const rootReducer: Reducer<
     .addCase(COMPLETE_TIMER, (state) => {
       if (!state.currTask) return;
       const task = state.currTask;
+      const currDate = state.stats[state.currDay];
       if (task.mode === "work") {
         task.tomatoesLeft--;
         state.tasks[0].tomatoes--;
-        state.totalTomatoes++;
+        if (currDate) {
+          currDate.tomatoes++;
+          currDate.tomatoesCompletedTime += state.currTask.totalTaskTime;
+        }
         task.tomatoesPassed++;
 
         if (task.tomatoesLeft === 0) {
@@ -213,12 +251,18 @@ export const rootReducer: Reducer<
           } else {
             state.currTask = {
               id: state.tasks[0].id,
+              taskNum: state.currTask.taskNum + 1,
               name: state.tasks[0].name,
+              totalTaskTime:
+                currDate.tomatoes !== 0 && currDate.tomatoes % 4 === 0
+                  ? LONG_BREAK_TIME
+                  : BREAK_TIME,
               time:
-                state.totalTomatoes !== 0 && state.totalTomatoes % 4 === 0
+                currDate.tomatoes !== 0 && currDate.tomatoes % 4 === 0
                   ? LONG_BREAK_TIME
                   : BREAK_TIME,
               passed: 0,
+              timeOfPause: 0,
               tomatoesPassed: 0,
               tomatoesLeft: state.tasks[0].tomatoes,
               isPaused: false,
@@ -245,6 +289,7 @@ export const rootReducer: Reducer<
       state.totalTime += TOMATO_TIME;
       state.currTask.passed = 0;
       state.currTask.time = TOMATO_TIME;
+      if (state.stats[state.currDay]) state.stats[state.currDay].cancelled++;
     })
     .addCase(SKIP_BREAK, (state) => {
       if (!state.currTask) return;
@@ -264,16 +309,38 @@ export const rootReducer: Reducer<
       } else {
         state.currTask = {
           id: state.tasks[0].id,
+          taskNum: state.currTask.taskNum,
           name: state.tasks[0].name,
+          totalTaskTime: TOMATO_TIME,
           time: TOMATO_TIME,
           passed: 0,
           tomatoesPassed: 0,
+          timeOfPause: 0,
           tomatoesLeft: state.tasks[0].tomatoes,
           isPaused: false,
           isStopped: true,
           mode: "work",
         };
       }
+      if (state.stats[state.currDay]) state.stats[state.currDay].cancelled++;
       saveToStorage(state);
+    })
+
+    /* DailyStats actions */
+    .addCase(UPDATE_CURR_DATE, (state, action: updateCurrDateAction) => {
+      state.currDay = action.date;
+      if (!Object.keys(state.stats).includes(action.date)) {
+        state.stats[action.date] = {
+          weekDay: action.weekDay,
+          tomatoesCompletedTime: 0,
+          pausedTime: 0,
+          tomatoes: 0,
+          workTime: 0,
+          cancelled: 0,
+        };
+      }
+      for (const key of action.clean) {
+        delete state.stats[key];
+      }
     });
 });

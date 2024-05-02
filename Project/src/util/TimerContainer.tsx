@@ -8,9 +8,10 @@ type TTimerContainer = {
 
 export function TimerContainer({ children }: TTimerContainer) {
   const taskData = useSelector((state: RootState) => state.currTask);
-  const working = taskData ? !taskData.isPaused && !taskData.isStopped : false;
+  const stopped = !taskData || taskData.isStopped;
+  const paused = taskData?.isPaused === true;
   const time = taskData ? taskData.time : 0;
-  useTimer(time, working);
+  useTimer(time, stopped, paused);
 
   return <>{children}</>;
 }

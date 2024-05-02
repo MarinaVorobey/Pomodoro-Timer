@@ -16,12 +16,13 @@
   border: none;
   font-size: 16px;
   font-weight: 300;
+  color: var(--text-color);
   background-color: var(--lighter-tone);
 }
 
 .form__submit-button {
   padding: 20px 50px;
-  color: var(--white);
+  color: var(--bg-color);
   font-size: 16px;
   font-weight: 500;
   background-color: var(--green);
