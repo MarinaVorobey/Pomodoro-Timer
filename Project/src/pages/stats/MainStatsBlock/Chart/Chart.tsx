@@ -12,13 +12,21 @@ import { colorsDark, colorsLight } from "../../../../globalConstants";
 import { formatTimeTasks } from "../../../../util/format/formatTimeTasks";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/rootReducer";
+import { getWeekStart } from "../../../../util/getWeekStart";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title);
 
 const TOMATO_TIME = 150000;
+const MILLISECONDS_IN_A_DAY = 86400000;
 
-export function Chart() {
+type TChartProps = {
+  weekShift: 0 | 1 | 2;
+  targetDate: string;
+};
+
+export function Chart({ weekShift, targetDate }: TChartProps) {
   const theme = useSelector((state: RootState) => state.theme);
+  const stats = useSelector((state: RootState) => state.stats);
 
   const options: ChartOptions<"bar"> = {
     responsive: true,
@@ -76,22 +84,32 @@ export function Chart() {
   };
 
   const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-  const dataMock = [
-    TOMATO_TIME,
-    TOMATO_TIME - 1000,
-    TOMATO_TIME * 5,
-    TOMATO_TIME * 3,
-    TOMATO_TIME * 9,
-    TOMATO_TIME,
-    0,
-  ];
+
+  const weekData: Array<number | null> = [];
+  const date = new Date(targetDate);
+  const weekStart = getWeekStart(date, date.getDay(), weekShift);
+  for (let i = 0; i < 7; i++) {
+    const currDate = new Date(weekStart.getTime() + MILLISECONDS_IN_A_DAY * i);
+    const dayFormatted = `${currDate.getFullYear()}-${
+      currDate.getMonth() + 1 > 9
+        ? currDate.getMonth() + 1
+        : "0" + (currDate.getMonth() + 1).toString()
+    }-${
+      currDate.getDate() > 9 ? currDate.getDate() : "0" + currDate.getDate()
+    }`;
+    if (dayFormatted in stats) {
+      weekData.push(stats[dayFormatted].totalWorkTime);
+    } else {
+      weekData.push(0);
+    }
+  }
 
   const data: ChartData<"bar"> = {
     labels,
     datasets: [
       {
         label: "Dataset 1",
-        data: dataMock,
+        data: weekData,
         minBarLength: 5,
         backgroundColor: colorsLight.lightRed,
         hoverBackgroundColor: colorsLight.red,

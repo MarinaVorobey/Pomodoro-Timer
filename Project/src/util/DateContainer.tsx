@@ -12,13 +12,12 @@ export function DateContainer({ children }: TDateContainer) {
   const dispatch = useDispatch();
   const dates = useSelector((state: RootState) => state.stats);
 
-  const todayFormatted = `${new Date().getFullYear()}-${
-    new Date().getMonth() + 1 > 9
-      ? new Date().getMonth() + 1
-      : "0" + (new Date().getMonth() + 1).toString()
-  }-${
-    new Date().getDate() > 9 ? new Date().getDate() : "0" + new Date().getDate()
-  }`;
+  const today = new Date();
+  const todayFormatted = `${today.getFullYear()}-${
+    today.getMonth() + 1 > 9
+      ? today.getMonth() + 1
+      : "0" + (today.getMonth() + 1).toString()
+  }-${today.getDate() > 9 ? today.getDate() : "0" + today.getDate()}`;
 
   useEffect(() => {
     const today = new Date();

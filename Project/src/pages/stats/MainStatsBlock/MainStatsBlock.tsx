@@ -6,6 +6,7 @@ import "./mainStatsBlock.css";
 type TMainStatsBlockProps = {
   statsInfo: TDailyStats | null;
   targetDate: string;
+  weekShift: 0 | 1 | 2;
 };
 
 const numsToWeekdays = {
@@ -21,6 +22,7 @@ const numsToWeekdays = {
 export function MainStatsBlock({
   statsInfo,
   targetDate,
+  weekShift,
 }: TMainStatsBlockProps) {
   return (
     <div className="stats__main-block">
@@ -82,7 +84,7 @@ export function MainStatsBlock({
         </div>
       </div>
       <div className="stats__right">
-        <Chart />
+        <Chart weekShift={weekShift} targetDate={targetDate} />
       </div>
     </div>
   );

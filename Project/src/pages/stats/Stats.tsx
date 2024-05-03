@@ -23,6 +23,7 @@ export function Stats() {
       <MainStatsBlock
         statsInfo={statsInfo}
         targetDate={statsControls.targetDate}
+        weekShift={statsControls.sortWeek}
       />
       <StatCards statsInfo={statsInfo} />
     </main>
