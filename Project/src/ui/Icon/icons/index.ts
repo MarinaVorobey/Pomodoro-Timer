@@ -12,3 +12,5 @@ export * from "./PlusTransparent";
 export * from "./Stats";
 export * from "./Moon";
 export * from "./Sun";
+export * from "./Bell";
+export * from "./Gear";

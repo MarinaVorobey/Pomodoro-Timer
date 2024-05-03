@@ -58,6 +58,8 @@ export function TimerControls({ taskData }: TTimerControlProps) {
         action={
           taskData && taskData.isPaused && taskData.mode === "work"
             ? skipTaskDispatch
+            : taskData?.mode == "work" && taskData?.isStopped
+            ? () => {}
             : taskData?.mode == "work"
             ? stopTime
             : skipBreakTime

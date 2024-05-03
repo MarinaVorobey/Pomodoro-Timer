@@ -9,6 +9,7 @@ import {
   COMPLETE_TIMER,
   DELETE_TASK,
   DeleteTaskAction,
+  HIDE_NOTIFICATION,
   LOAD_SAVED_STATE,
   LoadSavedStateAction,
   PAUSE_COUNT,
@@ -48,6 +49,15 @@ export type TDailyStats = {
   cancelled: number;
 };
 
+export type TNotification = {
+  on: boolean;
+  shown: boolean;
+  taskNum: number;
+  taskName: string;
+  mode: "work" | "break";
+  tomatoes: number;
+};
+
 export type TCurrentTask = {
   id: string;
   taskNum: number;
@@ -65,9 +75,11 @@ export type TCurrentTask = {
 
 export type RootState = {
   theme: "light" | "dark";
+  notification: TNotification;
   currDay: string;
   totalTime: number;
   maxId: number;
+
   tasks: TTask[];
   currTask: TCurrentTask | null;
 
@@ -82,6 +94,14 @@ export type RootState = {
 
 const initialState: RootState = {
   theme: "light",
+  notification: {
+    on: true,
+    shown: false,
+    taskNum: 1,
+    taskName: "",
+    mode: "work",
+    tomatoes: 0,
+  },
   currDay: "",
   totalTime: 0,
   maxId: 1,
@@ -94,7 +114,7 @@ const initialState: RootState = {
   },
 };
 
-const TOMATO_TIME = 150000;
+const TOMATO_TIME = 100000;
 const BREAK_TIME = 300000;
 const LONG_BREAK_TIME = 900000;
 
@@ -112,6 +132,9 @@ export const rootReducer: Reducer<
       state.theme = state.theme === "light" ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", state.theme);
       saveToStorage(state);
+    })
+    .addCase(HIDE_NOTIFICATION, (state) => {
+      state.notification.shown = false;
     })
 
     /* Tasks */
@@ -255,6 +278,14 @@ export const rootReducer: Reducer<
           currDate.tomatoesCompletedTime += state.currTask.totalTaskTime;
         }
         task.tomatoesPassed++;
+        state.notification = {
+          on: true,
+          shown: true,
+          taskNum: state.currTask.taskNum,
+          taskName: state.currTask.name,
+          tomatoes: state.currTask.tomatoesPassed,
+          mode: state.currTask.mode,
+        };
 
         if (task.tomatoesLeft === 0) {
           state.tasks.splice(0, 1);

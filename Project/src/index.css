@@ -338,3 +338,62 @@ button {
 .switch-icon svg path {
   fill: var(--text-color);
 }
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 10%;
+  right: 25px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--text-color);
+  background-color: var(--lighter-tone);
+}
+
+.notification__icon--work svg {
+  fill: var(--red);
+}
+
+.notification__icon--break svg {
+  fill: var(--green);
+}
+
+.notification__task {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.notification__task-num,
+.notification__task-name {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.notification__task-num {
+  color: var(--greyC4);
+}
+
+.notification__task-name {
+  color: var(--text-color);
+}
+
+.notification__results {
+  margin: 0;
+}
+
+.notification__message,
+.notification__task-part {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.notification__task-part--work {
+  color: var(--red);
+}
+
+.notification__task-part--break {
+  color: var(--green);
+}

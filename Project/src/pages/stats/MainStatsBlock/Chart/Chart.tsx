@@ -3,7 +3,6 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
   ChartOptions,
   ChartData,
 } from "chart.js";
@@ -14,7 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/rootReducer";
 import { getWeekStart } from "../../../../util/getWeekStart";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title);
+ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const TOMATO_TIME = 150000;
 const MILLISECONDS_IN_A_DAY = 86400000;
@@ -85,7 +84,7 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
 
   const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-  const weekData: Array<number | null> = [];
+  const weekData: Array<number> = [];
   const date = new Date(targetDate);
   const weekStart = getWeekStart(date, date.getDay(), weekShift);
   for (let i = 0; i < 7; i++) {
@@ -108,7 +107,7 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: "Timer statistics",
         data: weekData,
         minBarLength: 5,
         backgroundColor: colorsLight.lightRed,

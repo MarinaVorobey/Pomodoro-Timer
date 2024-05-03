@@ -5,8 +5,8 @@ import { RootState } from "../../store/rootReducer";
 import { useLoadTheme } from "../../hooks/useLoadTheme";
 
 type TSwitchProps = {
-  leftNode: ReactNode;
-  rightNode: ReactNode;
+  leftNode: ReactNode | string;
+  rightNode: ReactNode | string;
 };
 
 export function Switch({ leftNode, rightNode }: TSwitchProps) {

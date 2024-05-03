@@ -14,7 +14,9 @@ export type TIconNames =
   | "plus-transparent"
   | "stats"
   | "sun"
-  | "moon";
+  | "moon"
+  | "bell"
+  | "gear";
 
 type TIconProps = {
   type: TIconNames;
@@ -40,6 +42,8 @@ const iconNamesToIcons: TIcons = {
   stats: icons.Stats(),
   sun: icons.Sun(),
   moon: icons.Moon(),
+  bell: icons.Bell(),
+  gear: icons.Gear(),
 };
 
 export function Icon({ type, className }: TIconProps) {

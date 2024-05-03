@@ -23,6 +23,15 @@ export const switchTheme: ActionCreator<SwitchThemeAction> = () => ({
   type: SWITCH_THEME,
 });
 
+export const HIDE_NOTIFICATION = "HIDE_NOTIFICATION";
+export type HideNotificationAction = {
+  type: typeof HIDE_NOTIFICATION;
+};
+
+export const hideNotification: ActionCreator<HideNotificationAction> = () => ({
+  type: HIDE_NOTIFICATION,
+});
+
 export const ADD_TASK = "ADD_TASK";
 export type AddTaskAction = {
   type: typeof ADD_TASK;

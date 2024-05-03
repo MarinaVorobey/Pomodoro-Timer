@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Stats } from "./pages/stats/Stats";
 import { TimerContainer } from "./util/TimerContainer";
 import { DateContainer } from "./util/DateContainer";
+import { NotificationContainer } from "./util/NotificationContainer";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -26,7 +27,9 @@ function App() {
         <LoadedStoreProvider>
           <DateContainer>
             <TimerContainer>
-              <RouterProvider router={router} />
+              <NotificationContainer>
+                <RouterProvider router={router} />
+              </NotificationContainer>
             </TimerContainer>
           </DateContainer>
         </LoadedStoreProvider>
