@@ -3,9 +3,9 @@ export function formatTimeTasks(time: number): string {
   if (hours > 0) {
     time = time % 3600000;
   }
-  const minutes = Math.floor(time / 60000);
-  if (minutes > 0) {
-    time = time % 60000;
+  let minutes = Math.floor(time / 60000);
+  if (minutes === 0 && Math.ceil(time / 60000) === 1) {
+    minutes = 1;
   }
   return `${hours > 0 ? hours + " " : ""}${
     hours > 1 ? "часов " : hours > 0 ? "час " : ""

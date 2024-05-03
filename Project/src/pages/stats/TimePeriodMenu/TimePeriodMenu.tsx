@@ -2,8 +2,21 @@ import { useState } from "react";
 import { Button } from "../../../ui/Button";
 import { Dropdown } from "../../../ui/Dropdown/Dropdown";
 import { GenericList, TGenericItem } from "../../../util/GenericList";
+import { useDispatch } from "react-redux";
+import { changeWeekSort } from "../../../store/actions";
 
-export function TimePeriodMenu() {
+type TTimePeriodMenuProps = {
+  weekShift: 0 | 1 | 2;
+};
+
+const weekNumToString = {
+  0: "Эта неделя",
+  1: "Прошедшая неделя",
+  2: "2 недели назад",
+};
+
+export function TimePeriodMenu({ weekShift }: TTimePeriodMenuProps) {
+  const dispatch = useDispatch();
   const [arrowDown, setArrowDown] = useState(true);
   const moveArrow = () => setArrowDown((prev) => !prev);
 
@@ -12,30 +25,30 @@ export function TimePeriodMenu() {
       action={moveArrow}
       className={`stats-menu__btn${arrowDown ? "" : " reverse-arrow"}`}
       iconName="arrow"
-      text="Эта неделя"
+      text={weekNumToString[weekShift]}
     />
   );
 
   const optionsList: TGenericItem[] = [
     {
-      onClick: () => {},
+      onClick: () => dispatch(changeWeekSort(0)),
       className: "stats-menu__option",
       element: "Эта неделя",
+      id: "0",
+      As: "button",
+    },
+    {
+      onClick: () => dispatch(changeWeekSort(1)),
+      className: "stats-menu__option",
+      element: "Прошедшая неделя",
       id: "1",
       As: "button",
     },
     {
-      onClick: () => {},
-      className: "stats-menu__option",
-      element: "Прошедшая неделя",
-      id: "2",
-      As: "button",
-    },
-    {
-      onClick: () => {},
+      onClick: () => dispatch(changeWeekSort(2)),
       className: "stats-menu__option",
       element: "2 недели назад",
-      id: "3",
+      id: "2",
       As: "button",
     },
   ];
@@ -43,7 +56,11 @@ export function TimePeriodMenu() {
   return (
     <Dropdown
       button={menuBtn}
-      children={<GenericList list={optionsList} />}
+      children={
+        <GenericList
+          list={optionsList.filter((l) => l.id !== `${weekShift}`)}
+        />
+      }
       onClose={moveArrow}
     />
   );

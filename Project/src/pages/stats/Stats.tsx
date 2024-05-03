@@ -6,13 +6,11 @@ import "./stats.css";
 import { RootState, TDailyStats } from "../../store/rootReducer";
 
 export function Stats() {
-  const targetDate = useSelector(
-    (state: RootState) => state.statsControls.targetDate
-  );
+  const statsControls = useSelector((state: RootState) => state.statsControls);
   let statsInfo: TDailyStats | null = useSelector(
-    (state: RootState) => state.stats[targetDate]
+    (state: RootState) => state.stats[statsControls.targetDate]
   );
-  if (statsInfo.workTime === 0) {
+  if (statsInfo && statsInfo.totalWorkTime === 0) {
     statsInfo = null;
   }
 
@@ -20,9 +18,12 @@ export function Stats() {
     <main className="stats">
       <div className="stats__top">
         <h3 className="stats__title">Ваша активность</h3>
-        <TimePeriodMenu />
+        <TimePeriodMenu weekShift={statsControls.sortWeek} />
       </div>
-      <MainStatsBlock statsInfo={statsInfo} targetDate={targetDate} />
+      <MainStatsBlock
+        statsInfo={statsInfo}
+        targetDate={statsControls.targetDate}
+      />
       <StatCards statsInfo={statsInfo} />
     </main>
   );

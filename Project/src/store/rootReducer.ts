@@ -5,6 +5,7 @@ import {
   ADD_TOMATO,
   AddTaskAction,
   AddTomatoAction,
+  CHANGE_WEEK_SORT,
   COMPLETE_TIMER,
   DELETE_TASK,
   DeleteTaskAction,
@@ -26,6 +27,7 @@ import {
   TaskActions,
   TimerActions,
   UPDATE_CURR_DATE,
+  changeWeekSortAction,
   updateCurrDateAction,
 } from "./actions";
 import { saveToStorage } from "../util/saveToStorage";
@@ -41,6 +43,7 @@ export type TDailyStats = {
   pausedTime: number;
   tomatoesCompletedTime: number;
   workTime: number;
+  totalWorkTime: number;
   tomatoes: number;
   cancelled: number;
 };
@@ -73,7 +76,7 @@ export type RootState = {
   };
   statsControls: {
     targetDate: string;
-    sortWeek: number;
+    sortWeek: 0 | 1 | 2;
   };
 };
 
@@ -203,7 +206,6 @@ export const rootReducer: Reducer<
       state.currTask.time += 60000;
       state.currTask.totalTaskTime += 60000;
       if (state.currTask.mode === "work") {
-        state.stats[state.currDay].workTime += 60000;
         state.totalTime += 60000;
       }
       saveToStorage(state);
@@ -214,8 +216,9 @@ export const rootReducer: Reducer<
       state.currTask.passed += 1000;
       if (state.currTask.mode === "work") {
         state.totalTime -= 1000;
-        if (state.stats[state.currDay]) {
-          state.stats[state.currDay].workTime += 1000;
+        const currDate = state.stats[state.currDay];
+        if (currDate) {
+          currDate.totalWorkTime += 1000;
         }
       }
       saveToStorage(state);
@@ -248,6 +251,7 @@ export const rootReducer: Reducer<
         state.tasks[0].tomatoes--;
         if (currDate) {
           currDate.tomatoes++;
+          currDate.workTime += state.currTask.totalTaskTime;
           currDate.tomatoesCompletedTime += state.currTask.totalTaskTime;
         }
         task.tomatoesPassed++;
@@ -295,9 +299,14 @@ export const rootReducer: Reducer<
       state.currTask.isStopped = true;
       state.totalTime -= state.currTask.time;
       state.totalTime += TOMATO_TIME;
+      const currDate = state.stats[state.currDay];
+      if (currDate) {
+        currDate.cancelled++;
+        currDate.workTime += state.currTask.totalTaskTime - state.currTask.time;
+      }
       state.currTask.passed = 0;
       state.currTask.time = TOMATO_TIME;
-      if (state.stats[state.currDay]) state.stats[state.currDay].cancelled++;
+
       saveToStorage(state);
     })
     .addCase(SKIP_BREAK, (state) => {
@@ -307,12 +316,18 @@ export const rootReducer: Reducer<
       state.currTask.time = TOMATO_TIME;
       state.currTask.passed = 0;
       state.currTask.mode = "work";
+      saveToStorage(state);
     })
     .addCase(SKIP_TASK, (state) => {
       if (!state.currTask) return;
       state.totalTime -= TOMATO_TIME * (state.currTask.tomatoesLeft - 1);
       state.totalTime -= state.currTask.time;
       state.tasks.splice(0, 1);
+      const currDate = state.stats[state.currDay];
+      if (currDate) {
+        currDate.cancelled++;
+        currDate.workTime += state.currTask.totalTaskTime - state.currTask.time;
+      }
       if (!state.tasks.length) {
         state.currTask = null;
       } else {
@@ -331,7 +346,6 @@ export const rootReducer: Reducer<
           mode: "work",
         };
       }
-      if (state.stats[state.currDay]) state.stats[state.currDay].cancelled++;
       saveToStorage(state);
     })
 
@@ -342,6 +356,7 @@ export const rootReducer: Reducer<
         state.stats[action.date] = {
           weekDay: action.weekDay,
           tomatoesCompletedTime: 0,
+          totalWorkTime: 0,
           pausedTime: 0,
           tomatoes: 0,
           workTime: 0,
@@ -352,5 +367,9 @@ export const rootReducer: Reducer<
       for (const key of action.clean) {
         delete state.stats[key];
       }
+    })
+    .addCase(CHANGE_WEEK_SORT, (state, action: changeWeekSortAction) => {
+      state.statsControls.sortWeek = action.weekShift;
+      saveToStorage(state);
     });
 });

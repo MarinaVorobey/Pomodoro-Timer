@@ -19,7 +19,7 @@ export function StatCards({ statsInfo }: TStatCardsProps) {
           title="Фокус"
           iconType="focus"
           text={
-            !statsInfo
+            !statsInfo || statsInfo.workTime === 0
               ? "0%"
               : `${Math.floor(
                   (statsInfo.tomatoesCompletedTime / statsInfo.workTime) * 100
@@ -38,7 +38,11 @@ export function StatCards({ statsInfo }: TStatCardsProps) {
         <StatCard
           title="Время на паузе"
           iconType="alarm-clock"
-          text={!statsInfo ? "0м" : formatTimePauseCard(statsInfo.pausedTime)}
+          text={
+            !statsInfo || statsInfo.pausedTime === 0
+              ? "0м"
+              : formatTimePauseCard(statsInfo.pausedTime)
+          }
           hasInfo={statsInfo !== null}
         />
       ),

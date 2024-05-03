@@ -204,4 +204,17 @@ export const updateCurrDate: ActionCreator<updateCurrDateAction> = (
   clean: clean,
 });
 
-export type StatsActions = updateCurrDateAction;
+export const CHANGE_WEEK_SORT = "CHANGE_WEEK_SORT";
+export type changeWeekSortAction = {
+  type: typeof CHANGE_WEEK_SORT;
+  weekShift: 0 | 1 | 2;
+};
+
+export const changeWeekSort: ActionCreator<changeWeekSortAction> = (
+  weekShift: 0 | 1 | 2
+) => ({
+  type: CHANGE_WEEK_SORT,
+  weekShift: weekShift,
+});
+
+export type StatsActions = updateCurrDateAction | changeWeekSortAction;

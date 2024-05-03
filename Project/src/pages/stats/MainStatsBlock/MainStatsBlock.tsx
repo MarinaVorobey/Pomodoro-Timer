@@ -38,7 +38,7 @@ export function MainStatsBlock({
               <>
                 Вы&nbsp;работали над задачами в&nbsp;течение
                 <span className="curr-day__time">
-                  {" " + formatTimeStatsMain(statsInfo.workTime)}
+                  {" " + formatTimeStatsMain(statsInfo.totalWorkTime)}
                 </span>
               </>
             ) : (
