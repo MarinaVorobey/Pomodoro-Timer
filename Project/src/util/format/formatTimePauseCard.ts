@@ -9,7 +9,7 @@ export function formatTimePauseCard(time: number) {
     minutes = 1;
   }
 
-  return `${hours > 0 ? hours + " ч " : ""}${
-    minutes > 0 ? minutes + " м" : ""
+  return `${hours > 0 ? hours + "ч " : ""}${
+    minutes > 0 ? minutes + "м" : ""
   }`.trim();
 }

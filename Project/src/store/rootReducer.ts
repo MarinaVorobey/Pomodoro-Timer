@@ -5,6 +5,7 @@ import {
   ADD_TOMATO,
   AddTaskAction,
   AddTomatoAction,
+  CHANGE_TARGET_DATE,
   CHANGE_WEEK_SORT,
   COMPLETE_TIMER,
   DELETE_TASK,
@@ -28,8 +29,9 @@ import {
   TaskActions,
   TimerActions,
   UPDATE_CURR_DATE,
-  changeWeekSortAction,
-  updateCurrDateAction,
+  ChangeWeekSortAction,
+  UpdateCurrDateAction,
+  ChangeTargetDateAction,
 } from "./actions";
 import { saveToStorage } from "../util/saveToStorage";
 
@@ -107,7 +109,72 @@ const initialState: RootState = {
   maxId: 1,
   tasks: [],
   currTask: null,
-  stats: {},
+  stats: {
+    "2024-04-17": {
+      weekDay: 3,
+      pausedTime: 10000,
+      tomatoesCompletedTime: 100000,
+      workTime: 100000,
+      totalWorkTime: 100000,
+      tomatoes: 1,
+      cancelled: 0,
+    },
+    "2024-04-18": {
+      weekDay: 4,
+      pausedTime: 0,
+      tomatoesCompletedTime: 100000,
+      workTime: 200000,
+      totalWorkTime: 200000,
+      tomatoes: 1,
+      cancelled: 3,
+    },
+    "2024-04-19": {
+      weekDay: 5,
+      pausedTime: 10000,
+      tomatoesCompletedTime: 300000,
+      workTime: 300000,
+      totalWorkTime: 300000,
+      tomatoes: 3,
+      cancelled: 0,
+    },
+
+    "2024-04-24": {
+      weekDay: 3,
+      pausedTime: 10000,
+      tomatoesCompletedTime: 100000,
+      workTime: 100000,
+      totalWorkTime: 100000,
+      tomatoes: 1,
+      cancelled: 0,
+    },
+    "2024-04-25": {
+      weekDay: 4,
+      pausedTime: 0,
+      tomatoesCompletedTime: 100000,
+      workTime: 150000,
+      totalWorkTime: 150000,
+      tomatoes: 1,
+      cancelled: 1,
+    },
+    "2024-04-26": {
+      weekDay: 5,
+      pausedTime: 100000,
+      tomatoesCompletedTime: 0,
+      workTime: 150000,
+      totalWorkTime: 150000,
+      tomatoes: 0,
+      cancelled: 2,
+    },
+    "2024-04-27": {
+      weekDay: 6,
+      pausedTime: 10000,
+      tomatoesCompletedTime: 200000,
+      workTime: 250000,
+      totalWorkTime: 250000,
+      tomatoes: 2,
+      cancelled: 1,
+    },
+  },
   statsControls: {
     targetDate: "",
     sortWeek: 0,
@@ -135,6 +202,7 @@ export const rootReducer: Reducer<
     })
     .addCase(HIDE_NOTIFICATION, (state) => {
       state.notification.shown = false;
+      saveToStorage(state);
     })
 
     /* Tasks */
@@ -381,7 +449,7 @@ export const rootReducer: Reducer<
     })
 
     /* DailyStats actions */
-    .addCase(UPDATE_CURR_DATE, (state, action: updateCurrDateAction) => {
+    .addCase(UPDATE_CURR_DATE, (state, action: UpdateCurrDateAction) => {
       state.currDay = action.date;
       if (!Object.keys(state.stats).includes(action.date)) {
         state.stats[action.date] = {
@@ -399,8 +467,12 @@ export const rootReducer: Reducer<
         delete state.stats[key];
       }
     })
-    .addCase(CHANGE_WEEK_SORT, (state, action: changeWeekSortAction) => {
+    .addCase(CHANGE_WEEK_SORT, (state, action: ChangeWeekSortAction) => {
       state.statsControls.sortWeek = action.weekShift;
+      saveToStorage(state);
+    })
+    .addCase(CHANGE_TARGET_DATE, (state, action: ChangeTargetDateAction) => {
+      state.statsControls.targetDate = action.date;
       saveToStorage(state);
     });
 });

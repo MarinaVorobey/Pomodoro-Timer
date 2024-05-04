@@ -30,7 +30,7 @@ export function Notification({
   if (!notificationRoot) return null;
 
   const effects = {
-    hidden: { right: "-100px" },
+    hidden: { right: "-500px" },
     show: { right: "25px" },
     exit: {
       right: "-500px",

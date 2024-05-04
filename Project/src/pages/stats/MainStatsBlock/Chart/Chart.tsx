@@ -5,13 +5,17 @@ import {
   BarElement,
   ChartOptions,
   ChartData,
+  ChartEvent,
+  ActiveElement,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { colorsDark, colorsLight } from "../../../../globalConstants";
 import { formatTimeTasks } from "../../../../util/format/formatTimeTasks";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/rootReducer";
 import { getWeekStart } from "../../../../util/getWeekStart";
+import { RefObject, useRef } from "react";
+import { changeTargetDate } from "../../../../store/actions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
@@ -24,12 +28,59 @@ type TChartProps = {
 };
 
 export function Chart({ weekShift, targetDate }: TChartProps) {
+  const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme);
   const stats = useSelector((state: RootState) => state.stats);
+  const currDate = useSelector((state: RootState) => state.currDay);
+
+  const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+  let targetIndex = 0;
+  const dates: Array<string> = [];
+
+  const weekData: Array<number> = [];
+  const colors: Array<string> = [];
+  const date = new Date(currDate);
+  const weekStart = getWeekStart(date, date.getDay(), weekShift);
+  for (let i = 0; i < 7; i++) {
+    const currDate = new Date(weekStart.getTime() + MILLISECONDS_IN_A_DAY * i);
+    const dayFormatted = `${currDate.getFullYear()}-${
+      currDate.getMonth() + 1 > 9
+        ? currDate.getMonth() + 1
+        : "0" + (currDate.getMonth() + 1).toString()
+    }-${
+      currDate.getDate() > 9 ? currDate.getDate() : "0" + currDate.getDate()
+    }`;
+    dates.push(dayFormatted);
+
+    if (dayFormatted in stats && stats[dayFormatted].totalWorkTime > 0) {
+      weekData.push(stats[dayFormatted].totalWorkTime);
+      if (dayFormatted === targetDate) {
+        targetIndex = i;
+        colors.push(colorsLight.red);
+      } else {
+        colors.push(colorsLight.lightRed);
+      }
+    } else {
+      if (dayFormatted === targetDate) {
+        targetIndex = i;
+      }
+      weekData.push(0);
+      colors.push(colorsLight.greyC4);
+    }
+  }
+
+  const chartRef: RefObject<ChartJS<"bar"> | null> = useRef(null);
+  function handleBarClick(_: ChartEvent, element: ActiveElement[]) {
+    if (element.length > 0) {
+      const i = element[0].index;
+      dispatch(changeTargetDate(dates[i]));
+    }
+  }
 
   const options: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: true,
+    onClick: handleBarClick,
     layout: {
       padding: {
         left: 50,
@@ -44,7 +95,10 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
           display: false,
         },
         ticks: {
-          color: colorsLight.grey99,
+          color: function (context) {
+            const index = context.index;
+            return index === targetIndex ? colorsLight.red : colorsLight.greyC4;
+          },
           font: {
             family: "SFUIDisplay",
             size: 24,
@@ -82,27 +136,6 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
     },
   };
 
-  const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-
-  const weekData: Array<number> = [];
-  const date = new Date(targetDate);
-  const weekStart = getWeekStart(date, date.getDay(), weekShift);
-  for (let i = 0; i < 7; i++) {
-    const currDate = new Date(weekStart.getTime() + MILLISECONDS_IN_A_DAY * i);
-    const dayFormatted = `${currDate.getFullYear()}-${
-      currDate.getMonth() + 1 > 9
-        ? currDate.getMonth() + 1
-        : "0" + (currDate.getMonth() + 1).toString()
-    }-${
-      currDate.getDate() > 9 ? currDate.getDate() : "0" + currDate.getDate()
-    }`;
-    if (dayFormatted in stats) {
-      weekData.push(stats[dayFormatted].totalWorkTime);
-    } else {
-      weekData.push(0);
-    }
-  }
-
   const data: ChartData<"bar"> = {
     labels,
     datasets: [
@@ -110,11 +143,11 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
         label: "Timer statistics",
         data: weekData,
         minBarLength: 5,
-        backgroundColor: colorsLight.lightRed,
+        backgroundColor: colors,
         hoverBackgroundColor: colorsLight.red,
       },
     ],
   };
 
-  return <Bar options={options} data={data} />;
+  return <Bar ref={chartRef} options={options} data={data} />;
 }

@@ -10,7 +10,7 @@ export function Stats() {
   let statsInfo: TDailyStats | null = useSelector(
     (state: RootState) => state.stats[statsControls.targetDate]
   );
-  if (statsInfo && statsInfo.totalWorkTime === 0) {
+  if (!statsInfo || (statsInfo && statsInfo.totalWorkTime === 0)) {
     statsInfo = null;
   }
 
