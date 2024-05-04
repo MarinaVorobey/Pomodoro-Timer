@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Button } from "../Button";
+import { Button } from "../Button/Button";
 import { Overlay } from "./Overlay";
 import ReactDOM from "react-dom";
 

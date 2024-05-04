@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store/rootReducer";
-import { useTimer } from "../hooks/useTimer";
+import { RootState } from "../../store/rootReducer";
+import { useTimer } from "../../hooks/useTimer";
 
 type TTimerContainer = {
   children: React.ReactNode;

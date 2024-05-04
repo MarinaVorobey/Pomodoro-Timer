@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { TCurrentTask } from "../../../../store/rootReducer";
-import { Button } from "../../../../ui/Button";
+import { Button } from "../../../../ui/Button/Button";
 import {
   pauseTimer,
   skipBreak,

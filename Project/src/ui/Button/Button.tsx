@@ -1,4 +1,4 @@
-import { Icon, TIconNames } from "./Icon/Icon";
+import { Icon, TIconNames } from "../Icon/Icon";
 
 export type TButtonProps = {
   action: () => void;

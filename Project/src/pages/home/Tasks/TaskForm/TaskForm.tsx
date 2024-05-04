@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Button } from "../../../../ui/Button";
+import { Button } from "../../../../ui/Button/Button";
 import { useDispatch } from "react-redux";
 import { addTask, renameTask } from "../../../../store/actions";
 

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Button } from "../../../../../ui/Button";
+import { Button } from "../../../../../ui/Button/Button";
 import { Dropdown } from "../../../../../ui/Dropdown/Dropdown";
 import { Icon } from "../../../../../ui/Icon/Icon";
 import { GenericList, TGenericItem } from "../../../../../util/GenericList";

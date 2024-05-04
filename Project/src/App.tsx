@@ -5,9 +5,9 @@ import { store } from "./store/store";
 import { LoadedStoreProvider } from "./util/LoadedStoreProvider";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Stats } from "./pages/stats/Stats";
-import { TimerContainer } from "./util/TimerContainer";
-import { DateContainer } from "./util/DateContainer";
-import { NotificationContainer } from "./util/NotificationContainer";
+import { TimerContainer } from "./util/containers/TimerContainer";
+import { DateContainer } from "./util/containers/DateContainer";
+import { NotificationContainer } from "./util/containers/NotificationContainer";
 import { Settings } from "./pages/settings/Settings";
 
 const router = createBrowserRouter([

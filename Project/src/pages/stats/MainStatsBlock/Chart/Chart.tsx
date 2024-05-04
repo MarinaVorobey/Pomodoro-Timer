@@ -39,7 +39,7 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
   const weekData: Array<number> = [];
   const colors: Array<string> = [];
 
-  let targetIndex = 0;
+  let targetIndex = -1;
   const date = new Date(currDate);
   const weekStart = getWeekStart(date, date.getDay(), weekShift);
 
