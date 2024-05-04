@@ -1,6 +1,7 @@
 import { Icon } from "../Icon/Icon";
 import { Switch } from "../Switch/Switch";
 import { MainLink } from "./MainLink/MainLink";
+import { SettingsLink } from "./SettingsLink/SettingsLink";
 import { StatsLink } from "./StatsLink/StatsLink";
 
 export function TopNavbar() {
@@ -13,6 +14,7 @@ export function TopNavbar() {
         <MainLink />
         <div className="header__right-controls">
           <Switch leftNode={sunIcon} rightNode={moonIcon} />
+          <SettingsLink />
           <StatsLink />
         </div>
       </nav>

@@ -20,7 +20,6 @@ import { changeTargetDate } from "../../../../store/actions";
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const TOMATO_TIME = 150000;
-const MILLISECONDS_IN_A_DAY = 86400000;
 
 type TChartProps = {
   weekShift: 0 | 1 | 2;
@@ -29,20 +28,23 @@ type TChartProps = {
 
 export function Chart({ weekShift, targetDate }: TChartProps) {
   const dispatch = useDispatch();
+
   const theme = useSelector((state: RootState) => state.theme);
   const stats = useSelector((state: RootState) => state.stats);
   const currDate = useSelector((state: RootState) => state.currDay);
 
   const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-  let targetIndex = 0;
-  const dates: Array<string> = [];
 
+  const dates: Array<string> = [];
   const weekData: Array<number> = [];
   const colors: Array<string> = [];
+
+  let targetIndex = 0;
   const date = new Date(currDate);
   const weekStart = getWeekStart(date, date.getDay(), weekShift);
+
   for (let i = 0; i < 7; i++) {
-    const currDate = new Date(weekStart.getTime() + MILLISECONDS_IN_A_DAY * i);
+    const currDate = new Date(weekStart.getTime() + 86400000 * i);
     const dayFormatted = `${currDate.getFullYear()}-${
       currDate.getMonth() + 1 > 9
         ? currDate.getMonth() + 1
@@ -52,18 +54,16 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
     }`;
     dates.push(dayFormatted);
 
+    if (dayFormatted === targetDate) {
+      targetIndex = i;
+    }
+
     if (dayFormatted in stats && stats[dayFormatted].totalWorkTime > 0) {
       weekData.push(stats[dayFormatted].totalWorkTime);
-      if (dayFormatted === targetDate) {
-        targetIndex = i;
-        colors.push(colorsLight.red);
-      } else {
-        colors.push(colorsLight.lightRed);
-      }
+      colors.push(
+        dayFormatted === targetDate ? colorsLight.red : colorsLight.lightRed
+      );
     } else {
-      if (dayFormatted === targetDate) {
-        targetIndex = i;
-      }
       weekData.push(0);
       colors.push(colorsLight.greyC4);
     }

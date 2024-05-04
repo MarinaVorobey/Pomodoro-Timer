@@ -8,12 +8,17 @@ import { Stats } from "./pages/stats/Stats";
 import { TimerContainer } from "./util/TimerContainer";
 import { DateContainer } from "./util/DateContainer";
 import { NotificationContainer } from "./util/NotificationContainer";
+import { Settings } from "./pages/settings/Settings";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   {
     path: "statistics",
     element: <Stats />,
+  },
+  {
+    path: "settings",
+    element: <Settings />,
   },
 ]);
 
