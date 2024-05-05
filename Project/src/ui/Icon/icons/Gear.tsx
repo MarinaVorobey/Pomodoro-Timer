@@ -2,8 +2,8 @@ export function Gear() {
   return (
     <svg
       fill="none"
-      height="20px"
-      width="20px"
+      height="20"
+      width="20"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 461 461"
     >

@@ -463,6 +463,7 @@ export const rootReducer: Reducer<
         };
       }
       state.statsControls.targetDate = action.date;
+      state.statsControls.sortWeek = 0;
       for (const key of action.clean) {
         delete state.stats[key];
       }

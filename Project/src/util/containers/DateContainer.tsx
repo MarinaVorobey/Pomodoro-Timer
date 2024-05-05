@@ -3,6 +3,7 @@ import { RootState } from "../../store/rootReducer";
 import { useEffect } from "react";
 import { updateCurrDate } from "../../store/actions";
 import { getWeekStart } from "../getWeekStart";
+import { formatDateToString } from "../format/formatDateToString";
 
 type TDateContainer = {
   children: React.ReactNode;
@@ -13,11 +14,7 @@ export function DateContainer({ children }: TDateContainer) {
   const dates = useSelector((state: RootState) => state.stats);
 
   const today = new Date();
-  const todayFormatted = `${today.getFullYear()}-${
-    today.getMonth() + 1 > 9
-      ? today.getMonth() + 1
-      : "0" + (today.getMonth() + 1).toString()
-  }-${today.getDate() > 9 ? today.getDate() : "0" + today.getDate()}`;
+  const todayFormatted = formatDateToString(today);
 
   useEffect(() => {
     const today = new Date();

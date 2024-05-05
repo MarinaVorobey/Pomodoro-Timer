@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import { MainStatsBlock } from "./MainStatsBlock/MainStatsBlock";
 import { StatCards } from "./StatCards/StatCards";
 import { TimePeriodMenu } from "./TimePeriodMenu/TimePeriodMenu";
-import "./stats.css";
 import { RootState, TDailyStats } from "../../store/rootReducer";
+import "./stats.css";
 
 export function Stats() {
   const statsControls = useSelector((state: RootState) => state.statsControls);

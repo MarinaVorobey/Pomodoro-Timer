@@ -16,6 +16,7 @@ import { RootState } from "../../../../store/rootReducer";
 import { getWeekStart } from "../../../../util/getWeekStart";
 import { RefObject, useRef } from "react";
 import { changeTargetDate } from "../../../../store/actions";
+import { formatDateToString } from "../../../../util/format/formatDateToString";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
@@ -45,13 +46,7 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
 
   for (let i = 0; i < 7; i++) {
     const currDate = new Date(weekStart.getTime() + 86400000 * i);
-    const dayFormatted = `${currDate.getFullYear()}-${
-      currDate.getMonth() + 1 > 9
-        ? currDate.getMonth() + 1
-        : "0" + (currDate.getMonth() + 1).toString()
-    }-${
-      currDate.getDate() > 9 ? currDate.getDate() : "0" + currDate.getDate()
-    }`;
+    const dayFormatted = formatDateToString(currDate);
     dates.push(dayFormatted);
 
     if (dayFormatted === targetDate) {
