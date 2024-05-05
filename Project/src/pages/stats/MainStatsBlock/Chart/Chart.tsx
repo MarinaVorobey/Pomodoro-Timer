@@ -20,8 +20,6 @@ import { formatDateToString } from "../../../../util/format/formatDateToString";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
-const TOMATO_TIME = 150000;
-
 type TChartProps = {
   weekShift: 0 | 1 | 2;
   targetDate: string;
@@ -33,6 +31,9 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
   const theme = useSelector((state: RootState) => state.theme);
   const stats = useSelector((state: RootState) => state.stats);
   const currDate = useSelector((state: RootState) => state.currDay);
+  const tomatoTime = useSelector(
+    (state: RootState) => state.globalControls.tomatoTime
+  );
 
   const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
@@ -109,16 +110,16 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
         grid: {
           color: colorsLight.greyE4,
         },
-        suggestedMax: TOMATO_TIME * 5,
+        suggestedMax: tomatoTime * 5,
         ticks: {
           padding: 32,
           count: 5,
-          stepSize: TOMATO_TIME,
+          stepSize: tomatoTime,
           color:
             theme === "light" ? colorsLight.textColor : colorsDark.textColor,
           callback: function (val, index) {
             return val !== 0 && typeof val == "number"
-              ? formatTimeTasks(TOMATO_TIME * index)
+              ? formatTimeTasks(tomatoTime * index)
               : "";
           },
           font: {

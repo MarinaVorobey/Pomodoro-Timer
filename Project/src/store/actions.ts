@@ -32,6 +32,78 @@ export const hideNotification: ActionCreator<HideNotificationAction> = () => ({
   type: HIDE_NOTIFICATION,
 });
 
+/* Settings actions */
+export const CHANGE_TOMATO_TIME = "CHANGE_TOMATO_TIME";
+export type ChangeTomatoTimeAction = {
+  type: typeof CHANGE_TOMATO_TIME;
+  time: number;
+};
+
+export const changeTomatoTime: ActionCreator<ChangeTomatoTimeAction> = (
+  time: number
+) => ({
+  type: CHANGE_TOMATO_TIME,
+  time: time,
+});
+
+export const CHANGE_BREAK_TIME = "CHANGE_BREAK_TIME";
+export type ChangeBreakTimeAction = {
+  type: typeof CHANGE_BREAK_TIME;
+  time: number;
+};
+
+export const changeBreakTime: ActionCreator<ChangeBreakTimeAction> = (
+  time: number
+) => ({
+  type: CHANGE_BREAK_TIME,
+  time: time,
+});
+
+export const CHANGE_LONG_BREAK_TIME = "CHANGE_LONG_BREAK_TIME";
+export type ChangeLongBreakTimeAction = {
+  type: typeof CHANGE_LONG_BREAK_TIME;
+  time: number;
+};
+
+export const changeLongBreakTime: ActionCreator<ChangeLongBreakTimeAction> = (
+  time: number
+) => ({
+  type: CHANGE_LONG_BREAK_TIME,
+  time: time,
+});
+
+export const CHANGE_LONG_BREAK_FREQUENCY = "CHANGE_LONG_BREAK_FREQUENCY";
+export type ChangeLongBreakFrequencyAction = {
+  type: typeof CHANGE_LONG_BREAK_FREQUENCY;
+  frequency: number;
+};
+
+export const changeLongBreakFrequency: ActionCreator<
+  ChangeLongBreakFrequencyAction
+> = (frequency: number) => ({
+  type: CHANGE_LONG_BREAK_FREQUENCY,
+  frequency: frequency,
+});
+
+export const TOGGLE_NOTIFICATIONS = "TOGGLE_NOTIFICATIONS";
+export type ToggleNotificationsAction = {
+  type: typeof TOGGLE_NOTIFICATIONS;
+};
+
+export const toggleNotifications: ActionCreator<
+  ToggleNotificationsAction
+> = () => ({
+  type: TOGGLE_NOTIFICATIONS,
+});
+
+export type GlobalControlsActions =
+  | ChangeTomatoTimeAction
+  | ChangeBreakTimeAction
+  | ChangeLongBreakTimeAction
+  | ChangeLongBreakFrequencyAction
+  | ToggleNotificationsAction;
+
+/* TaskActions */
 export const ADD_TASK = "ADD_TASK";
 export type AddTaskAction = {
   type: typeof ADD_TASK;
@@ -101,7 +173,7 @@ export type TaskActions =
   | RemoveTomatoAction
   | DeleteTaskAction;
 
-// Timer actions
+/* Timer actions */
 export const ADD_TIME = "ADD_TIME";
 export type AddTimeAction = {
   type: typeof ADD_TIME;

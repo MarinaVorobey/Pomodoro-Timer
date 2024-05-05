@@ -32,6 +32,16 @@ import {
   ChangeWeekSortAction,
   UpdateCurrDateAction,
   ChangeTargetDateAction,
+  GlobalControlsActions,
+  ChangeTomatoTimeAction,
+  CHANGE_TOMATO_TIME,
+  CHANGE_BREAK_TIME,
+  ChangeBreakTimeAction,
+  CHANGE_LONG_BREAK_TIME,
+  ChangeLongBreakTimeAction,
+  CHANGE_LONG_BREAK_FREQUENCY,
+  ChangeLongBreakFrequencyAction,
+  TOGGLE_NOTIFICATIONS,
 } from "./actions";
 import { saveToStorage } from "../util/saveToStorage";
 
@@ -75,27 +85,45 @@ export type TCurrentTask = {
   mode: "work" | "break";
 };
 
+export type TGlobalControls = {
+  tomatoTime: number;
+  breakTime: number;
+  longBreakTime: number;
+  longBreakFrequency: number;
+};
+
 export type RootState = {
   theme: "light" | "dark";
-  notification: TNotification;
   currDay: string;
   totalTime: number;
   maxId: number;
 
-  tasks: TTask[];
-  currTask: TCurrentTask | null;
-
-  stats: {
-    [N: string]: TDailyStats;
-  };
+  globalControls: TGlobalControls;
+  notification: TNotification;
   statsControls: {
     targetDate: string;
     sortWeek: 0 | 1 | 2;
+  };
+
+  tasks: TTask[];
+  currTask: TCurrentTask | null;
+  stats: {
+    [N: string]: TDailyStats;
   };
 };
 
 const initialState: RootState = {
   theme: "light",
+  currDay: "",
+  totalTime: 0,
+  maxId: 1,
+
+  globalControls: {
+    tomatoTime: 100000,
+    breakTime: 300000,
+    longBreakTime: 900000,
+    longBreakFrequency: 4,
+  },
   notification: {
     on: true,
     shown: false,
@@ -104,9 +132,11 @@ const initialState: RootState = {
     mode: "work",
     tomatoes: 0,
   },
-  currDay: "",
-  totalTime: 0,
-  maxId: 1,
+  statsControls: {
+    targetDate: "",
+    sortWeek: 0,
+  },
+
   tasks: [],
   currTask: null,
   stats: {
@@ -175,19 +205,15 @@ const initialState: RootState = {
       cancelled: 1,
     },
   },
-  statsControls: {
-    targetDate: "",
-    sortWeek: 0,
-  },
 };
-
-const TOMATO_TIME = 100000;
-const BREAK_TIME = 300000;
-const LONG_BREAK_TIME = 900000;
 
 export const rootReducer: Reducer<
   RootState,
-  TaskActions | TimerActions | LoadSavedStateAction | SwitchThemeAction
+  | TaskActions
+  | TimerActions
+  | GlobalControlsActions
+  | LoadSavedStateAction
+  | SwitchThemeAction
 > = createReducer(initialState, (builder) => {
   builder
     /* Global */
@@ -205,6 +231,34 @@ export const rootReducer: Reducer<
       saveToStorage(state);
     })
 
+    /* Global controls */
+    .addCase(CHANGE_TOMATO_TIME, (state, action: ChangeTomatoTimeAction) => {
+      state.globalControls.tomatoTime = action.time;
+      saveToStorage(state);
+    })
+    .addCase(CHANGE_BREAK_TIME, (state, action: ChangeBreakTimeAction) => {
+      state.globalControls.breakTime = action.time;
+      saveToStorage(state);
+    })
+    .addCase(
+      CHANGE_LONG_BREAK_TIME,
+      (state, action: ChangeLongBreakTimeAction) => {
+        state.globalControls.longBreakTime = action.time;
+        saveToStorage(state);
+      }
+    )
+    .addCase(
+      CHANGE_LONG_BREAK_FREQUENCY,
+      (state, action: ChangeLongBreakFrequencyAction) => {
+        state.globalControls.longBreakFrequency = action.frequency;
+        saveToStorage(state);
+      }
+    )
+    .addCase(TOGGLE_NOTIFICATIONS, (state) => {
+      state.notification.on = !state.notification.on;
+      saveToStorage(state);
+    })
+
     /* Tasks */
     .addCase(ADD_TASK, (state, action: AddTaskAction) => {
       state.tasks.push({
@@ -213,14 +267,14 @@ export const rootReducer: Reducer<
         tomatoes: 1,
       });
       state.maxId++;
-      state.totalTime += TOMATO_TIME;
+      state.totalTime += state.globalControls.tomatoTime;
       if (!state.currTask) {
         state.currTask = {
           id: state.tasks[0].id,
           taskNum: 1,
           name: action.name,
-          totalTaskTime: TOMATO_TIME,
-          time: TOMATO_TIME,
+          totalTaskTime: state.globalControls.tomatoTime,
+          time: state.globalControls.tomatoTime,
           timeOfPause: 0,
           passed: 0,
           tomatoesPassed: 0,
@@ -244,7 +298,7 @@ export const rootReducer: Reducer<
       const task = state.tasks.find((x: TTask) => x.id === action.id);
       if (!task) return;
       task.tomatoes++;
-      state.totalTime += TOMATO_TIME;
+      state.totalTime += state.globalControls.tomatoTime;
       if (action.id === state.currTask?.id) {
         state.currTask.tomatoesLeft++;
       }
@@ -254,7 +308,7 @@ export const rootReducer: Reducer<
       const task = state.tasks.find((x: TTask) => x.id === action.id);
       if (!task || task.tomatoes <= 1) return;
       task.tomatoes--;
-      state.totalTime -= TOMATO_TIME;
+      state.totalTime -= state.globalControls.tomatoTime;
 
       if (action.id === state.currTask?.id) {
         state.currTask.tomatoesLeft--;
@@ -264,11 +318,12 @@ export const rootReducer: Reducer<
     .addCase(DELETE_TASK, (state, action: DeleteTaskAction) => {
       const task = state.tasks.find((x) => x.id === action.id);
       if (task) {
-        state.totalTime -= TOMATO_TIME * task.tomatoes;
+        state.totalTime -= state.globalControls.tomatoTime * task.tomatoes;
       }
       state.tasks = state.tasks.filter((x: TTask) => x.id !== action.id);
       if (action.id === state.currTask?.id) {
-        state.totalTime += TOMATO_TIME - state.currTask.time;
+        state.totalTime +=
+          state.globalControls.tomatoTime - state.currTask.time;
         if (!state.tasks.length) {
           state.currTask = null;
         } else {
@@ -276,8 +331,8 @@ export const rootReducer: Reducer<
             id: state.tasks[0].id,
             taskNum: state.currTask.taskNum,
             name: state.tasks[0].name,
-            totalTaskTime: TOMATO_TIME,
-            time: TOMATO_TIME,
+            totalTaskTime: state.globalControls.tomatoTime,
+            time: state.globalControls.tomatoTime,
             timeOfPause: 0,
             passed: 0,
             tomatoesPassed: 0,
@@ -346,14 +401,16 @@ export const rootReducer: Reducer<
           currDate.tomatoesCompletedTime += state.currTask.totalTaskTime;
         }
         task.tomatoesPassed++;
-        state.notification = {
-          on: true,
-          shown: true,
-          taskNum: state.currTask.taskNum,
-          taskName: state.currTask.name,
-          tomatoes: state.currTask.tomatoesPassed,
-          mode: state.currTask.mode,
-        };
+        if (state.notification.on) {
+          state.notification = {
+            on: true,
+            shown: true,
+            taskNum: state.currTask.taskNum,
+            taskName: state.currTask.name,
+            tomatoes: state.currTask.tomatoesPassed,
+            mode: state.currTask.mode,
+          };
+        }
 
         if (task.tomatoesLeft === 0) {
           state.tasks.splice(0, 1);
@@ -365,13 +422,17 @@ export const rootReducer: Reducer<
               taskNum: state.currTask.taskNum + 1,
               name: state.tasks[0].name,
               totalTaskTime:
-                currDate.tomatoes !== 0 && currDate.tomatoes % 4 === 0
-                  ? LONG_BREAK_TIME
-                  : BREAK_TIME,
+                currDate.tomatoes !== 0 &&
+                currDate.tomatoes % state.globalControls.longBreakFrequency ===
+                  0
+                  ? state.globalControls.longBreakTime
+                  : state.globalControls.breakTime,
               time:
-                currDate.tomatoes !== 0 && currDate.tomatoes % 4 === 0
-                  ? LONG_BREAK_TIME
-                  : BREAK_TIME,
+                currDate.tomatoes !== 0 &&
+                currDate.tomatoes % state.globalControls.longBreakFrequency ===
+                  0
+                  ? state.globalControls.longBreakTime
+                  : state.globalControls.breakTime,
               passed: 0,
               timeOfPause: 0,
               tomatoesPassed: 0,
@@ -384,11 +445,11 @@ export const rootReducer: Reducer<
         } else {
           task.passed = 0;
           task.mode = "break";
-          task.time = BREAK_TIME;
+          task.time = state.globalControls.breakTime;
         }
       } else {
         task.mode = "work";
-        task.time = TOMATO_TIME;
+        task.time = state.globalControls.tomatoTime;
       }
       saveToStorage(state);
     })
@@ -397,14 +458,14 @@ export const rootReducer: Reducer<
       state.currTask.isPaused = false;
       state.currTask.isStopped = true;
       state.totalTime -= state.currTask.time;
-      state.totalTime += TOMATO_TIME;
+      state.totalTime += state.globalControls.tomatoTime;
       const currDate = state.stats[state.currDay];
       if (currDate) {
         currDate.cancelled++;
         currDate.workTime += state.currTask.totalTaskTime - state.currTask.time;
       }
       state.currTask.passed = 0;
-      state.currTask.time = TOMATO_TIME;
+      state.currTask.time = state.globalControls.tomatoTime;
 
       saveToStorage(state);
     })
@@ -412,14 +473,15 @@ export const rootReducer: Reducer<
       if (!state.currTask) return;
       state.currTask.isPaused = false;
       state.currTask.isStopped = true;
-      state.currTask.time = TOMATO_TIME;
+      state.currTask.time = state.globalControls.tomatoTime;
       state.currTask.passed = 0;
       state.currTask.mode = "work";
       saveToStorage(state);
     })
     .addCase(SKIP_TASK, (state) => {
       if (!state.currTask) return;
-      state.totalTime -= TOMATO_TIME * (state.currTask.tomatoesLeft - 1);
+      state.totalTime -=
+        state.globalControls.tomatoTime * (state.currTask.tomatoesLeft - 1);
       state.totalTime -= state.currTask.time;
       state.tasks.splice(0, 1);
       const currDate = state.stats[state.currDay];
@@ -434,8 +496,8 @@ export const rootReducer: Reducer<
           id: state.tasks[0].id,
           taskNum: state.currTask.taskNum,
           name: state.tasks[0].name,
-          totalTaskTime: TOMATO_TIME,
-          time: TOMATO_TIME,
+          totalTaskTime: state.globalControls.tomatoTime,
+          time: state.globalControls.tomatoTime,
           passed: 0,
           tomatoesPassed: 0,
           timeOfPause: 0,
