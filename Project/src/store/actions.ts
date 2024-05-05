@@ -1,5 +1,5 @@
 import { ActionCreator } from "@reduxjs/toolkit";
-import { RootState } from "./rootReducer";
+import { RootState, TGlobalControls } from "./rootReducer";
 
 export const LOAD_SAVED_STATE = "LOAD_SAVED_STATE";
 export type LoadSavedStateAction = {
@@ -11,7 +11,7 @@ export const loadSavedState: ActionCreator<LoadSavedStateAction> = (
   savedState: RootState
 ) => ({
   type: LOAD_SAVED_STATE,
-  savedState: savedState,
+  savedState,
 });
 
 export const SWITCH_THEME = "SWITCH_THEME";
@@ -32,76 +32,18 @@ export const hideNotification: ActionCreator<HideNotificationAction> = () => ({
   type: HIDE_NOTIFICATION,
 });
 
-/* Settings actions */
-export const CHANGE_TOMATO_TIME = "CHANGE_TOMATO_TIME";
-export type ChangeTomatoTimeAction = {
-  type: typeof CHANGE_TOMATO_TIME;
-  time: number;
+export const CHANGE_SETTINGS = "CHANGE_SETTINGS";
+export type ChangeSettingsAction = {
+  type: typeof CHANGE_SETTINGS;
+  settings: TGlobalControls;
 };
 
-export const changeTomatoTime: ActionCreator<ChangeTomatoTimeAction> = (
-  time: number
+export const changeSettings: ActionCreator<ChangeSettingsAction> = (
+  settings: TGlobalControls
 ) => ({
-  type: CHANGE_TOMATO_TIME,
-  time: time,
+  type: CHANGE_SETTINGS,
+  settings,
 });
-
-export const CHANGE_BREAK_TIME = "CHANGE_BREAK_TIME";
-export type ChangeBreakTimeAction = {
-  type: typeof CHANGE_BREAK_TIME;
-  time: number;
-};
-
-export const changeBreakTime: ActionCreator<ChangeBreakTimeAction> = (
-  time: number
-) => ({
-  type: CHANGE_BREAK_TIME,
-  time: time,
-});
-
-export const CHANGE_LONG_BREAK_TIME = "CHANGE_LONG_BREAK_TIME";
-export type ChangeLongBreakTimeAction = {
-  type: typeof CHANGE_LONG_BREAK_TIME;
-  time: number;
-};
-
-export const changeLongBreakTime: ActionCreator<ChangeLongBreakTimeAction> = (
-  time: number
-) => ({
-  type: CHANGE_LONG_BREAK_TIME,
-  time: time,
-});
-
-export const CHANGE_LONG_BREAK_FREQUENCY = "CHANGE_LONG_BREAK_FREQUENCY";
-export type ChangeLongBreakFrequencyAction = {
-  type: typeof CHANGE_LONG_BREAK_FREQUENCY;
-  frequency: number;
-};
-
-export const changeLongBreakFrequency: ActionCreator<
-  ChangeLongBreakFrequencyAction
-> = (frequency: number) => ({
-  type: CHANGE_LONG_BREAK_FREQUENCY,
-  frequency: frequency,
-});
-
-export const TOGGLE_NOTIFICATIONS = "TOGGLE_NOTIFICATIONS";
-export type ToggleNotificationsAction = {
-  type: typeof TOGGLE_NOTIFICATIONS;
-};
-
-export const toggleNotifications: ActionCreator<
-  ToggleNotificationsAction
-> = () => ({
-  type: TOGGLE_NOTIFICATIONS,
-});
-
-export type GlobalControlsActions =
-  | ChangeTomatoTimeAction
-  | ChangeBreakTimeAction
-  | ChangeLongBreakTimeAction
-  | ChangeLongBreakFrequencyAction
-  | ToggleNotificationsAction;
 
 /* TaskActions */
 export const ADD_TASK = "ADD_TASK";
@@ -112,7 +54,7 @@ export type AddTaskAction = {
 
 export const addTask: ActionCreator<AddTaskAction> = (name: string) => ({
   type: ADD_TASK,
-  name: name,
+  name,
 });
 
 export const RENAME_TASK = "RENAME_TASK";
@@ -128,7 +70,7 @@ export const renameTask: ActionCreator<RenameTaskAction> = (
 ) => ({
   type: RENAME_TASK,
   name: newName,
-  id: id,
+  id,
 });
 
 export const ADD_TOMATO = "ADD_TOMATO";
@@ -152,7 +94,7 @@ export const removeTomato: ActionCreator<RemoveTomatoAction> = (
   id: string
 ) => ({
   type: REMOVE_TOMATO,
-  id: id,
+  id,
 });
 
 export const DELETE_TASK = "DELETE_TASK";
@@ -163,7 +105,7 @@ export type DeleteTaskAction = {
 
 export const deleteTask: ActionCreator<DeleteTaskAction> = (id: string) => ({
   type: DELETE_TASK,
-  id: id,
+  id,
 });
 
 export type TaskActions =
@@ -280,9 +222,9 @@ export const updateCurrDate: ActionCreator<UpdateCurrDateAction> = (
   clean: string[]
 ) => ({
   type: UPDATE_CURR_DATE,
-  date: date,
-  weekDay: weekDay,
-  clean: clean,
+  date,
+  weekDay,
+  clean,
 });
 
 export const CHANGE_WEEK_SORT = "CHANGE_WEEK_SORT";
@@ -295,7 +237,7 @@ export const changeWeekSort: ActionCreator<ChangeWeekSortAction> = (
   weekShift: 0 | 1 | 2
 ) => ({
   type: CHANGE_WEEK_SORT,
-  weekShift: weekShift,
+  weekShift,
 });
 
 export const CHANGE_TARGET_DATE = "CHANGE_TARGET_DATE";
@@ -308,7 +250,7 @@ export const changeTargetDate: ActionCreator<ChangeTargetDateAction> = (
   date: string
 ) => ({
   type: CHANGE_TARGET_DATE,
-  date: date,
+  date,
 });
 
 export type StatsActions =

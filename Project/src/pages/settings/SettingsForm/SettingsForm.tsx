@@ -1,3 +1,3 @@
 export function SettingsForm() {
-  return <form action="#"></form>;
+  return <form className="form settings__form"></form>;
 }

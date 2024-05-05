@@ -25,7 +25,11 @@ export function TaskForm({
     if (formTask.trim().length < 3) {
       setError("Введите как минимум 3 символа");
       return;
+    } else if (formTask.trim().length > 256) {
+      setError("Введите максимум 256 символов");
+      return;
     }
+
     if (type === "add") {
       dispatch(addTask(formTask));
     } else {

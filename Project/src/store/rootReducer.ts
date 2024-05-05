@@ -32,16 +32,8 @@ import {
   ChangeWeekSortAction,
   UpdateCurrDateAction,
   ChangeTargetDateAction,
-  GlobalControlsActions,
-  ChangeTomatoTimeAction,
-  CHANGE_TOMATO_TIME,
-  CHANGE_BREAK_TIME,
-  ChangeBreakTimeAction,
-  CHANGE_LONG_BREAK_TIME,
-  ChangeLongBreakTimeAction,
-  CHANGE_LONG_BREAK_FREQUENCY,
-  ChangeLongBreakFrequencyAction,
-  TOGGLE_NOTIFICATIONS,
+  CHANGE_SETTINGS,
+  ChangeSettingsAction,
 } from "./actions";
 import { saveToStorage } from "../util/saveToStorage";
 
@@ -62,7 +54,6 @@ export type TDailyStats = {
 };
 
 export type TNotification = {
-  on: boolean;
   shown: boolean;
   taskNum: number;
   taskName: string;
@@ -90,6 +81,7 @@ export type TGlobalControls = {
   breakTime: number;
   longBreakTime: number;
   longBreakFrequency: number;
+  notify: boolean;
 };
 
 export type RootState = {
@@ -123,9 +115,9 @@ const initialState: RootState = {
     breakTime: 300000,
     longBreakTime: 900000,
     longBreakFrequency: 4,
+    notify: true,
   },
   notification: {
-    on: true,
     shown: false,
     taskNum: 1,
     taskName: "",
@@ -209,11 +201,7 @@ const initialState: RootState = {
 
 export const rootReducer: Reducer<
   RootState,
-  | TaskActions
-  | TimerActions
-  | GlobalControlsActions
-  | LoadSavedStateAction
-  | SwitchThemeAction
+  TaskActions | TimerActions | LoadSavedStateAction | SwitchThemeAction
 > = createReducer(initialState, (builder) => {
   builder
     /* Global */
@@ -230,33 +218,8 @@ export const rootReducer: Reducer<
       state.notification.shown = false;
       saveToStorage(state);
     })
-
-    /* Global controls */
-    .addCase(CHANGE_TOMATO_TIME, (state, action: ChangeTomatoTimeAction) => {
-      state.globalControls.tomatoTime = action.time;
-      saveToStorage(state);
-    })
-    .addCase(CHANGE_BREAK_TIME, (state, action: ChangeBreakTimeAction) => {
-      state.globalControls.breakTime = action.time;
-      saveToStorage(state);
-    })
-    .addCase(
-      CHANGE_LONG_BREAK_TIME,
-      (state, action: ChangeLongBreakTimeAction) => {
-        state.globalControls.longBreakTime = action.time;
-        saveToStorage(state);
-      }
-    )
-    .addCase(
-      CHANGE_LONG_BREAK_FREQUENCY,
-      (state, action: ChangeLongBreakFrequencyAction) => {
-        state.globalControls.longBreakFrequency = action.frequency;
-        saveToStorage(state);
-      }
-    )
-    .addCase(TOGGLE_NOTIFICATIONS, (state) => {
-      state.notification.on = !state.notification.on;
-      saveToStorage(state);
+    .addCase(CHANGE_SETTINGS, (state, action: ChangeSettingsAction) => {
+      Object.assign(state, action.settings);
     })
 
     /* Tasks */
@@ -401,9 +364,8 @@ export const rootReducer: Reducer<
           currDate.tomatoesCompletedTime += state.currTask.totalTaskTime;
         }
         task.tomatoesPassed++;
-        if (state.notification.on) {
+        if (state.globalControls.notify) {
           state.notification = {
-            on: true,
             shown: true,
             taskNum: state.currTask.taskNum,
             taskName: state.currTask.name,
