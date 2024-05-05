@@ -1,30 +1,35 @@
 import { ReactNode } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { switchTheme } from "../../store/actions";
-import { RootState } from "../../store/rootReducer";
-import { useLoadTheme } from "../../hooks/useLoadTheme";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type TSwitchProps = {
+  mode: string;
   leftNode: ReactNode | string;
   rightNode: ReactNode | string;
+  onChange?: (e: unknown) => void;
+  register?: UseFormRegisterReturn;
+  checked: boolean;
 };
 
-export function Switch({ leftNode, rightNode }: TSwitchProps) {
-  const dispatch = useDispatch();
-  useLoadTheme();
-  const currTheme = useSelector((state: RootState) => state.theme);
-
+export function Switch({
+  mode,
+  leftNode,
+  rightNode,
+  onChange,
+  register,
+  checked,
+}: TSwitchProps) {
   return (
     <div className="switch-block">
       {leftNode}
       <input
-        onChange={() => dispatch(switchTheme())}
+        {...register}
+        onChange={onChange}
         type="checkbox"
-        id="switch"
+        id={`switch-${mode}`}
         className="switch"
-        checked={currTheme === "dark"}
+        checked={checked}
       />
-      <label htmlFor="switch" className="toggle"></label>
+      <label htmlFor={`switch-${mode}`} className="toggle"></label>
       {rightNode}
     </div>
   );
