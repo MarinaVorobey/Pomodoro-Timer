@@ -9,6 +9,7 @@ import { TimerContainer } from "./util/containers/TimerContainer";
 import { DateContainer } from "./util/containers/DateContainer";
 import { NotificationContainer } from "./util/containers/NotificationContainer";
 import { Settings } from "./pages/settings/Settings";
+import { PageNotFound } from "./pages/pageNotFound/PageNotFound";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -20,16 +21,20 @@ const router = createBrowserRouter([
     path: "settings",
     element: <Settings />,
   },
+  {
+    path: "*",
+    element: <PageNotFound />,
+  },
 ]);
 
 function App() {
   return (
     <Provider store={store}>
-      <h1 className="visually-hidden">pomodoro_box - Таймер Помодоро</h1>
-      <TopNavbar />
+      <LoadedStoreProvider>
+        <h1 className="visually-hidden">pomodoro_box - Таймер Помодоро</h1>
+        <TopNavbar />
 
-      <div className="container">
-        <LoadedStoreProvider>
+        <div className="container">
           <DateContainer>
             <TimerContainer>
               <NotificationContainer>
@@ -37,8 +42,8 @@ function App() {
               </NotificationContainer>
             </TimerContainer>
           </DateContainer>
-        </LoadedStoreProvider>
-      </div>
+        </div>
+      </LoadedStoreProvider>
     </Provider>
   );
 }

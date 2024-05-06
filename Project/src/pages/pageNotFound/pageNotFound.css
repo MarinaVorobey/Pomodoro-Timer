@@ -1,0 +1,33 @@
+/* Page Not Found */
+.not-found {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 50px;
+}
+
+.not-found__title {
+  margin: 0;
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.not-found__paragraph {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.not-found__link {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-color);
+  -webkit-text-decoration: underline 2px;
+  text-decoration: underline 2px;
+}
+
+.not-found__icon svg path {
+  stroke: var(--red);
+}
