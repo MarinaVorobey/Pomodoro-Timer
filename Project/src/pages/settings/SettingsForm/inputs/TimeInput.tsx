@@ -1,5 +1,4 @@
-import { useForm } from "react-hook-form";
-import { TFormInput } from "../SettingsForm";
+import { useFormContext } from "react-hook-form";
 
 type TTimeInputProps = {
   type: "tomato" | "break" | "longBreak";
@@ -7,7 +6,7 @@ type TTimeInputProps = {
 };
 
 export function TimeInput({ type, label }: TTimeInputProps) {
-  const { register } = useForm<TFormInput>();
+  const { register } = useFormContext();
 
   return (
     <div className="settings__input-group">
@@ -16,9 +15,16 @@ export function TimeInput({ type, label }: TTimeInputProps) {
         <input
           className="settings__time-input"
           {...register(`${type}TimeMinutes`, {
-            required: true,
-            max: 99,
-            min: 1,
+            required: { value: true, message: "Заполните все поля" },
+            pattern: {
+              value: /^\d+$/,
+              message: "Заполните время с помощью цифр",
+            },
+            max: {
+              value: 99,
+              message: "Максимальное число минут - 99",
+            },
+            min: { value: 1, message: "Минимальное число минут - 1" },
           })}
         />
         <span className="settings__time-label">минут</span>
@@ -27,9 +33,16 @@ export function TimeInput({ type, label }: TTimeInputProps) {
         <input
           className="settings__time-input"
           {...register(`${type}TimeSeconds`, {
-            required: true,
-            max: 99,
-            min: 1,
+            required: { value: true, message: "Заполните все поля" },
+            pattern: {
+              value: /^\d+$/,
+              message: "Заполните время с помощью цифр",
+            },
+            max: {
+              value: 99,
+              message: "Максимальное число секунд - 59",
+            },
+            min: { value: 0, message: "Минимальное число секунд - 0" },
           })}
         />
         <span className="settings__time-label">секунд</span>

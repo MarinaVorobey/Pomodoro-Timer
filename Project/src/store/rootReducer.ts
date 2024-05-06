@@ -219,7 +219,8 @@ export const rootReducer: Reducer<
       saveToStorage(state);
     })
     .addCase(CHANGE_SETTINGS, (state, action: ChangeSettingsAction) => {
-      Object.assign(state, action.settings);
+      Object.assign(state.globalControls, action.settings);
+      saveToStorage(state);
     })
 
     /* Tasks */

@@ -1,8 +1,71 @@
 /* Settings */
 .settings__title {
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 24px;
   font-weight: 700;
   color: var(--text-color);
+}
+
+.settings__form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.settings__input-group {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 15px;
+}
+
+.settings__time-input-block {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.settings__time-input {
+  max-width: 50px;
+  padding: 15px 15px;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  color: var(--text-color);
+  background-color: var(--lighter-tone);
+}
+
+.settings__time-input-label,
+.settings__time-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.settings__submit {
+  padding: 20px 40px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--bg-color);
+  background-color: var(--red);
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.settings__submit:focus {
+  background-color: var(--dark-red);
+}
+
+.settings__submit:hover {
+  background-color: var(--dark-red);
+}
+
+.settings__error {
+  font-size: 20px;
+  color: var(--red);
 }
