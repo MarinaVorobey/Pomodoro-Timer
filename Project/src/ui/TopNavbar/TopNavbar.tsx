@@ -5,8 +5,8 @@ import { Switch } from "../Switch/Switch";
 import { MainLink } from "./MainLink/MainLink";
 import { SettingsLink } from "./SettingsLink/SettingsLink";
 import { StatsLink } from "./StatsLink/StatsLink";
-import { switchTheme } from "../../store/actions";
 import { RootState } from "../../store/rootReducer";
+import { switchTheme } from "../../store/actions/globalActions";
 
 export function TopNavbar() {
   const sunIcon = <Icon type="sun" className="switch-icon" />;

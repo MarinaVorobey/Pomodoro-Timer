@@ -2,8 +2,8 @@ import ReactDOM from "react-dom";
 import { Icon } from "../Icon/Icon";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { hideNotification } from "../../store/actions";
 import { motion } from "framer-motion";
+import { hideNotification } from "../../store/actions/globalActions";
 
 type TNotificationProps = {
   taskName: string;

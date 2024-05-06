@@ -5,10 +5,10 @@ import { formatSplitTime } from "../../../util/format/formatSplitTime";
 import { TimeInput } from "./inputs/TimeInput";
 import { FrequencyInput } from "./inputs/FrequencyInput";
 import { Switch } from "../../../ui/Switch/Switch";
-import { changeSettings } from "../../../store/actions";
 import { formatJoinTime } from "../../../util/format/formatJoinTime";
 import { SettingsControls } from "./SettingsControls/SettingsControls";
 import { useState } from "react";
+import { changeSettings } from "../../../store/actions/globalActions";
 
 export type TFormInput = {
   tomatoTimeMinutes: number;

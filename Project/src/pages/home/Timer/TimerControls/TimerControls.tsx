@@ -2,12 +2,12 @@ import { useDispatch } from "react-redux";
 import { TCurrentTask } from "../../../../store/rootReducer";
 import { Button } from "../../../../ui/Button/Button";
 import {
+  startTimer,
   pauseTimer,
+  stopTimer,
   skipBreak,
   skipTask,
-  startTimer,
-  stopTimer,
-} from "../../../../store/actions";
+} from "../../../../store/actions/timerActions";
 
 type TTimerControlProps = {
   taskData: TCurrentTask | null;

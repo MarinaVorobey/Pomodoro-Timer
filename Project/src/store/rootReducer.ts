@@ -1,41 +1,48 @@
 import { Reducer, createReducer } from "@reduxjs/toolkit";
+import { saveToStorage } from "../util/saveToStorage";
 import {
-  ADD_TASK,
-  ADD_TIME,
-  ADD_TOMATO,
-  AddTaskAction,
-  AddTomatoAction,
-  CHANGE_TARGET_DATE,
-  CHANGE_WEEK_SORT,
-  COMPLETE_TIMER,
-  DELETE_TASK,
-  DeleteTaskAction,
-  HIDE_NOTIFICATION,
-  LOAD_SAVED_STATE,
-  LoadSavedStateAction,
-  PAUSE_COUNT,
-  PAUSE_TIMER,
-  REMOVE_TOMATO,
-  RENAME_TASK,
-  RemoveTomatoAction,
-  RenameTaskAction,
-  SKIP_BREAK,
-  SKIP_TASK,
-  START_TIMER,
-  STOP_TIMER,
-  SWITCH_THEME,
-  SwitchThemeAction,
-  TIMER_COUNT,
-  TaskActions,
-  TimerActions,
   UPDATE_CURR_DATE,
-  ChangeWeekSortAction,
   UpdateCurrDateAction,
+  CHANGE_WEEK_SORT,
+  ChangeWeekSortAction,
+  CHANGE_TARGET_DATE,
   ChangeTargetDateAction,
+  StatsActions,
+} from "./actions/dailyStatsActions";
+import {
+  LoadSavedStateAction,
+  LOAD_SAVED_STATE,
+  SWITCH_THEME,
+  HIDE_NOTIFICATION,
   CHANGE_SETTINGS,
   ChangeSettingsAction,
-} from "./actions";
-import { saveToStorage } from "../util/saveToStorage";
+  GlobalActions,
+} from "./actions/globalActions";
+import {
+  TaskActions,
+  ADD_TASK,
+  AddTaskAction,
+  RENAME_TASK,
+  RenameTaskAction,
+  ADD_TOMATO,
+  AddTomatoAction,
+  REMOVE_TOMATO,
+  RemoveTomatoAction,
+  DELETE_TASK,
+  DeleteTaskAction,
+} from "./actions/taskActions";
+import {
+  TimerActions,
+  ADD_TIME,
+  TIMER_COUNT,
+  PAUSE_COUNT,
+  PAUSE_TIMER,
+  START_TIMER,
+  COMPLETE_TIMER,
+  STOP_TIMER,
+  SKIP_BREAK,
+  SKIP_TASK,
+} from "./actions/timerActions";
 
 type TTask = {
   id: string;
@@ -201,7 +208,7 @@ const initialState: RootState = {
 
 export const rootReducer: Reducer<
   RootState,
-  TaskActions | TimerActions | LoadSavedStateAction | SwitchThemeAction
+  TaskActions | TimerActions | StatsActions | GlobalActions
 > = createReducer(initialState, (builder) => {
   builder
     /* Global */
@@ -220,6 +227,12 @@ export const rootReducer: Reducer<
     })
     .addCase(CHANGE_SETTINGS, (state, action: ChangeSettingsAction) => {
       Object.assign(state.globalControls, action.settings);
+      if (state.currTask && state.currTask.isStopped) {
+        state.totalTime -= state.currTask.totalTaskTime;
+        state.currTask.totalTaskTime = action.settings.tomatoTime;
+        state.currTask.time = action.settings.tomatoTime;
+        state.totalTime += state.currTask.totalTaskTime;
+      }
       saveToStorage(state);
     })
 
@@ -286,8 +299,7 @@ export const rootReducer: Reducer<
       }
       state.tasks = state.tasks.filter((x: TTask) => x.id !== action.id);
       if (action.id === state.currTask?.id) {
-        state.totalTime +=
-          state.globalControls.tomatoTime - state.currTask.time;
+        state.totalTime += state.currTask.totalTaskTime - state.currTask.time;
         if (!state.tasks.length) {
           state.currTask = null;
         } else {
@@ -356,6 +368,15 @@ export const rootReducer: Reducer<
       if (!state.currTask) return;
       const task = state.currTask;
       const currDate = state.stats[state.currDay];
+      if (state.globalControls.notify) {
+        state.notification = {
+          shown: true,
+          taskNum: state.currTask.taskNum,
+          taskName: state.currTask.name,
+          tomatoes: state.currTask.tomatoesPassed,
+          mode: state.currTask.mode,
+        };
+      }
       if (task.mode === "work") {
         task.tomatoesLeft--;
         state.tasks[0].tomatoes--;
@@ -365,15 +386,6 @@ export const rootReducer: Reducer<
           currDate.tomatoesCompletedTime += state.currTask.totalTaskTime;
         }
         task.tomatoesPassed++;
-        if (state.globalControls.notify) {
-          state.notification = {
-            shown: true,
-            taskNum: state.currTask.taskNum,
-            taskName: state.currTask.name,
-            tomatoes: state.currTask.tomatoesPassed,
-            mode: state.currTask.mode,
-          };
-        }
 
         if (task.tomatoesLeft === 0) {
           state.tasks.splice(0, 1);
@@ -385,15 +397,13 @@ export const rootReducer: Reducer<
               taskNum: state.currTask.taskNum + 1,
               name: state.tasks[0].name,
               totalTaskTime:
-                currDate.tomatoes !== 0 &&
                 currDate.tomatoes % state.globalControls.longBreakFrequency ===
-                  0
+                0
                   ? state.globalControls.longBreakTime
                   : state.globalControls.breakTime,
               time:
-                currDate.tomatoes !== 0 &&
                 currDate.tomatoes % state.globalControls.longBreakFrequency ===
-                  0
+                0
                   ? state.globalControls.longBreakTime
                   : state.globalControls.breakTime,
               passed: 0,
@@ -408,11 +418,15 @@ export const rootReducer: Reducer<
         } else {
           task.passed = 0;
           task.mode = "break";
-          task.time = state.globalControls.breakTime;
+          task.time =
+            currDate.tomatoes % state.globalControls.longBreakFrequency === 0
+              ? state.globalControls.longBreakTime
+              : state.globalControls.breakTime;
         }
       } else {
         task.mode = "work";
         task.time = state.globalControls.tomatoTime;
+        task.totalTaskTime = state.globalControls.tomatoTime;
       }
       saveToStorage(state);
     })
@@ -421,14 +435,14 @@ export const rootReducer: Reducer<
       state.currTask.isPaused = false;
       state.currTask.isStopped = true;
       state.totalTime -= state.currTask.time;
-      state.totalTime += state.globalControls.tomatoTime;
+      state.totalTime += state.currTask.totalTaskTime;
       const currDate = state.stats[state.currDay];
       if (currDate) {
         currDate.cancelled++;
         currDate.workTime += state.currTask.totalTaskTime - state.currTask.time;
       }
       state.currTask.passed = 0;
-      state.currTask.time = state.globalControls.tomatoTime;
+      state.currTask.time = state.currTask.totalTaskTime;
 
       saveToStorage(state);
     })

@@ -3,7 +3,7 @@ import { Button } from "../../../ui/Button/Button";
 import { Dropdown } from "../../../ui/Dropdown/Dropdown";
 import { GenericList, TGenericItem } from "../../../util/GenericList";
 import { useDispatch } from "react-redux";
-import { changeWeekSort } from "../../../store/actions";
+import { changeWeekSort } from "../../../store/actions/dailyStatsActions";
 
 type TTimePeriodMenuProps = {
   weekShift: 0 | 1 | 2;

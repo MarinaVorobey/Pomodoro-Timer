@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "../../../../ui/Button/Button";
 import { useDispatch } from "react-redux";
-import { addTask, renameTask } from "../../../../store/actions";
+import { addTask, renameTask } from "../../../../store/actions/taskActions";
 
 type TTaskFormProps = {
   additionalAction?: () => void;

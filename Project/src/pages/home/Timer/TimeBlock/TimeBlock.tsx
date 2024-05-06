@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import { formatTimeTimer } from "../../../../util/format/formatTimeTimer";
 import { TCurrentTask } from "../../../../store/rootReducer";
 import { Button } from "../../../../ui/Button/Button";
-import { addTime } from "../../../../store/actions";
 import { calculateCircleDasharray } from "../../../../util/calculateCircleDasharray";
+import { addTime } from "../../../../store/actions/timerActions";
 
 type TTimeBlockProps = {
   taskData: TCurrentTask | null;

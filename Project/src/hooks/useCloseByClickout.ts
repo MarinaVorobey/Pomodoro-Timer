@@ -2,7 +2,7 @@ import React from "react";
 
 export function useCloseByClickout(
   ref: React.RefObject<HTMLDivElement>,
-  onClose?: () => void
+  onClose: () => void
 ) {
   React.useEffect(() => {
     function handleClick(event: MouseEvent) {
@@ -10,7 +10,7 @@ export function useCloseByClickout(
         event.target instanceof Node &&
         !ref.current?.contains(event.target)
       ) {
-        onClose?.();
+        onClose();
       }
     }
 

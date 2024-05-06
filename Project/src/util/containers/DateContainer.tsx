@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootReducer";
 import { useEffect } from "react";
-import { updateCurrDate } from "../../store/actions";
 import { getWeekStart } from "../getWeekStart";
 import { formatDateToString } from "../format/formatDateToString";
+import { updateCurrDate } from "../../store/actions/dailyStatsActions";
 
 type TDateContainer = {
   children: React.ReactNode;

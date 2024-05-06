@@ -83,6 +83,7 @@ body {
 
 * {
   color: var(--text-color);
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -99,7 +100,12 @@ a {
 }
 
 button {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
   padding: 0;
   border: 0;
@@ -136,7 +142,12 @@ button {
   top: 0;
   left: 0;
   z-index: 999;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column wrap;
   flex-flow: column wrap;
   border: var(--black);
   background-color: var(--bg-color);
@@ -160,7 +171,7 @@ button {
   display: block;
   position: absolute;
   z-index: 1001;
-  left: calc(50% - 10px + 1px);
+  left: calc(50% - 9px);
   bottom: 99%;
   width: 0;
   height: 0;
@@ -172,26 +183,50 @@ button {
 .header {
   padding: 15px 80px;
   margin-bottom: 50px;
+  -webkit-box-shadow: 0px 10px 63px 0px #00000012;
   box-shadow: 0px 10px 63px 0px #00000012;
 }
 
 .header__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
 .header__right-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 30px;
 }
 
 .header__main-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 12px;
   font-size: 24px;
@@ -205,18 +240,29 @@ button {
 }
 
 .header__stats-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 5px;
   font-size: 16px;
   font-weight: 400;
   color: var(--red);
+  -webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
 
 .header__stats-link svg path {
   fill: var(--red);
+  -webkit-transition: fill 0.3s ease-in-out;
+  -o-transition: fill 0.3s ease-in-out;
   transition: fill 0.3s ease-in-out;
 }
 
@@ -258,9 +304,25 @@ button {
   width: 450px;
   max-height: 77%;
   background-color: var(--bg-color);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  -webkit-animation-name: animatetop;
   animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
   animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatetop {
+  from {
+    top: 20%;
+    opacity: 0
+  }
+
+  to {
+    top: 50%;
+    opacity: 1
+  }
 }
 
 @keyframes animatetop {
@@ -278,8 +340,15 @@ button {
 .modal__content {
   position: relative;
   overflow-x: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 25px 85px;
   gap: 25px;
@@ -297,8 +366,15 @@ button {
 
 /* Switch */
 .switch-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 8px;
 }
@@ -323,6 +399,8 @@ button {
   height: 25px;
   border-radius: 50%;
   background-color: var(--red);
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
   transition: all 0.5s;
 }
 
@@ -343,8 +421,15 @@ button {
   position: fixed;
   top: 10%;
   right: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 10px;
   padding: 20px;

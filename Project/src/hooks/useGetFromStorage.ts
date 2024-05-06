@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { RootState } from "../store/rootReducer";
-import { loadSavedState } from "../store/actions";
+import { loadSavedState } from "../store/actions/globalActions";
 
 export function useGetFromStorage() {
   const dispatch = useDispatch();

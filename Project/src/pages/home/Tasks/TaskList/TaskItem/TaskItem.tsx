@@ -3,15 +3,15 @@ import { Button } from "../../../../../ui/Button/Button";
 import { Dropdown } from "../../../../../ui/Dropdown/Dropdown";
 import { Icon } from "../../../../../ui/Icon/Icon";
 import { GenericList, TGenericItem } from "../../../../../util/GenericList";
-import {
-  addTomato,
-  deleteTask,
-  removeTomato,
-} from "../../../../../store/actions";
 import { useState } from "react";
 import { Modal } from "../../../../../ui/Modal/Modal";
 import { TaskDeleteModal } from "./TaskDeleteModal";
 import { TaskEditModal } from "./TaskEditModal";
+import {
+  deleteTask,
+  addTomato,
+  removeTomato,
+} from "../../../../../store/actions/taskActions";
 
 type TTaskItemProps = {
   id: string;

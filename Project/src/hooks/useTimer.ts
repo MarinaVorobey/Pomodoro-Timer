@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { completeTimer, pauseCount, timerCount } from "../store/actions";
+import {
+  completeTimer,
+  pauseCount,
+  timerCount,
+} from "../store/actions/timerActions";
 
 export function useTimer(time: number, stopped: boolean, paused: boolean) {
   const dispatch = useDispatch();

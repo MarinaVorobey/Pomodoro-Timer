@@ -15,8 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/rootReducer";
 import { getWeekStart } from "../../../../util/getWeekStart";
 import { RefObject, useRef } from "react";
-import { changeTargetDate } from "../../../../store/actions";
 import { formatDateToString } from "../../../../util/format/formatDateToString";
+import { changeTargetDate } from "../../../../store/actions/dailyStatsActions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
