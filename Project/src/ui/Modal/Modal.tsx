@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Button } from "../Button/Button";
-import { Overlay } from "./Overlay";
 import ReactDOM from "react-dom";
 
 type TModalProps = {
@@ -14,7 +13,7 @@ export function Modal({ onClose, children }: TModalProps) {
 
   return (
     <>
-      <Overlay onClick={onClose} />
+      <div id="overlay" onClick={onClose}></div>
       {ReactDOM.createPortal(
         <div className="modal">
           <div className="modal__content">

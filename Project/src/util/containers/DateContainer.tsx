@@ -13,12 +13,12 @@ export function DateContainer({ children }: TDateContainer) {
   const dispatch = useDispatch();
   const dates = useSelector((state: RootState) => state.stats);
 
-  const today = new Date();
-  const todayFormatted = formatDateToString(today);
+  const today: Date = new Date();
+  const todayFormatted: string = formatDateToString(today);
 
   useEffect(() => {
-    const today = new Date();
-    const weekDay = today.getDay();
+    const today: Date = new Date();
+    const weekDay: number = today.getDay();
     const cleaned: Array<keyof typeof dates> = [];
 
     if (!Object.keys(dates).includes(todayFormatted)) {
@@ -26,7 +26,7 @@ export function DateContainer({ children }: TDateContainer) {
 
       const dateKeys: Array<keyof typeof dates> = Object.keys(dates);
       for (const key of dateKeys) {
-        const date = new Date(key);
+        const date: Date = new Date(key);
         if (date < twoWeeksAgo) {
           cleaned.push(key);
         }

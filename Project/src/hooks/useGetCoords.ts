@@ -10,7 +10,7 @@ export function useGetCoords(
   dropdownOpen: boolean,
   leftShift: number,
   topShift: number
-) {
+): [Coords | null] {
   const [coords, setCoords] = React.useState<Coords | null>(null);
 
   React.useEffect(() => {

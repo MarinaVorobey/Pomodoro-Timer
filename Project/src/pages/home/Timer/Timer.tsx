@@ -1,12 +1,14 @@
 import { useSelector } from "react-redux";
 import { TimeBlock } from "./TimeBlock/TimeBlock";
 import { TimerControls } from "./TimerControls/TimerControls";
+import { RootState, TCurrentTask } from "../../../store/rootReducer";
 import "./timer.css";
-import { RootState } from "../../../store/rootReducer";
 
 export function Timer() {
-  const currTask = useSelector((state: RootState) => state.currTask);
-  const totalTomatoes = useSelector((state: RootState) =>
+  const currTask: TCurrentTask | null = useSelector(
+    (state: RootState) => state.currTask
+  );
+  const totalTomatoes: number = useSelector((state: RootState) =>
     state.stats[state.currDay] ? state.stats[state.currDay].tomatoes : 0
   );
 

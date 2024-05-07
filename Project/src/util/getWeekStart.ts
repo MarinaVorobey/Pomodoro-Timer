@@ -6,7 +6,7 @@ export function getWeekStart(
   weekDay: number,
   weeksAgo: number
 ): Date {
-  const startOfWeek =
+  const startOfWeek: number =
     weekDay === 0
       ? MILLISECONDS_IN_A_DAY * 6
       : MILLISECONDS_IN_A_DAY * (weekDay - 1);

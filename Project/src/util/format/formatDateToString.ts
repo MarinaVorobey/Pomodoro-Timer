@@ -1,4 +1,4 @@
-export function formatDateToString(date: Date) {
+export function formatDateToString(date: Date): string {
   return `${date.getFullYear()}-${
     date.getMonth() + 1 > 9
       ? date.getMonth() + 1

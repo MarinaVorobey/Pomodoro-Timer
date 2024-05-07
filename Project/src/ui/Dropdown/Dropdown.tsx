@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 import { useGetCoords } from "../../hooks/useGetCoords";
 import { DropdownMenu } from "./DropdownMenu";
 
@@ -20,7 +20,9 @@ export function Dropdown({
   showTopPointer,
 }: TDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const containerRef: RefObject<HTMLDivElement> =
+    React.useRef<HTMLDivElement>(null);
+
   if (!leftShift) {
     leftShift = 0;
   }

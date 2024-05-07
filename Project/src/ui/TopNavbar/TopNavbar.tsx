@@ -9,11 +9,12 @@ import { RootState } from "../../store/rootReducer";
 import { switchTheme } from "../../store/actions/globalActions";
 
 export function TopNavbar() {
-  const sunIcon = <Icon type="sun" className="switch-icon" />;
-  const moonIcon = <Icon type="moon" className="switch-icon" />;
   const dispatch = useDispatch();
   useLoadTheme();
+
   const currTheme = useSelector((state: RootState) => state.theme);
+  const sunIcon = <Icon type="sun" className="switch-icon" />;
+  const moonIcon = <Icon type="moon" className="switch-icon" />;
 
   return (
     <header className="header">

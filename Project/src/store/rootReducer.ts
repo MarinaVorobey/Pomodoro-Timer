@@ -44,7 +44,7 @@ import {
   SKIP_TASK,
 } from "./actions/timerActions";
 
-type TTask = {
+export type TTask = {
   id: string;
   name: string;
   tomatoes: number;
@@ -436,7 +436,7 @@ export const rootReducer: Reducer<
           tomatoesPassed: 0,
           tomatoesLeft: state.tasks[0].tomatoes,
           isPaused: false,
-          isStopped: false,
+          isStopped: true,
           mode: "work",
         };
       } else {

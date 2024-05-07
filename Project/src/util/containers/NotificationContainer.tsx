@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/rootReducer";
+import { RootState, TNotification } from "../../store/rootReducer";
 import { Notification } from "../../ui/Notification/Notification";
 import { ReactNode } from "react";
 import { AnimatePresence } from "framer-motion";
@@ -11,7 +11,7 @@ type TNotificationContainerProps = {
 export function NotificationContainer({
   children,
 }: TNotificationContainerProps) {
-  const notificationInfo = useSelector(
+  const notificationInfo: TNotification = useSelector(
     (state: RootState) => state.notification
   );
 

@@ -12,10 +12,10 @@ type TTimeBlockProps = {
 export function TimeBlock({ taskData }: TTimeBlockProps) {
   const dispatch = useDispatch();
 
-  const time = taskData ? taskData.time : 0;
-  const passedTime = taskData ? taskData.passed : 0;
-  const circle = calculateCircleDasharray(time, passedTime);
-  const formattedTime = formatTimeTimer(time);
+  const time: number = taskData ? taskData.time : 0;
+  const passedTime: number = taskData ? taskData.passed : 0;
+  const circle: string = calculateCircleDasharray(time, passedTime);
+  const formattedTime: string = formatTimeTimer(time);
 
   return (
     <div className="timer__time-block">

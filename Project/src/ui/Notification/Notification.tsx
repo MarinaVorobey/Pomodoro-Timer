@@ -46,7 +46,6 @@ export function Notification({
           animate="show"
           exit="exit"
           className="notification"
-          key="notification"
         >
           <Icon type="bell" className={`notification__icon--${mode}`} />
           <div className="notification__text">
