@@ -110,7 +110,8 @@ export function Chart({ weekShift, targetDate }: TChartProps) {
         grid: {
           color: colorsLight.greyE4,
         },
-        suggestedMax: tomatoTime * 5,
+        max: tomatoTime * 4,
+
         ticks: {
           padding: 32,
           count: 5,

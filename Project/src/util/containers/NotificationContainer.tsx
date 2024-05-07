@@ -23,7 +23,7 @@ export function NotificationContainer({
             taskName={notificationInfo.taskName}
             taskNum={notificationInfo.taskNum}
             mode={notificationInfo.mode}
-            part={notificationInfo.tomatoes + 1}
+            part={notificationInfo.tomatoes}
           />
         ) : null}
       </AnimatePresence>

@@ -20,9 +20,9 @@ export function Notification({
 }: TNotificationProps) {
   const dispatch = useDispatch();
   const notificationRoot = document.getElementById("notification-root");
+  const audio = new Audio("/audio/notification-sound.mp3");
 
   useEffect(() => {
-    const audio = new Audio("/audio/notification-sound.mp3");
     audio.play();
     setTimeout(() => dispatch(hideNotification()), 3000);
   }, []);
