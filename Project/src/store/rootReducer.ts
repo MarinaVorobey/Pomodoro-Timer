@@ -118,7 +118,7 @@ const initialState: RootState = {
   maxId: 1,
 
   globalControls: {
-    tomatoTime: 100000,
+    tomatoTime: 1500000,
     breakTime: 300000,
     longBreakTime: 900000,
     longBreakFrequency: 4,

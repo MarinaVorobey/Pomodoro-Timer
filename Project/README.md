@@ -1,30 +1,36 @@
-# React + TypeScript + Vite
+# Проект Pomodoro_box
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Диплом Воробей Марины
 
-Currently, two official plugins are available:
+Для запуска проекта выполните команду: npm run dev.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Страницы проекта:
 
-## Expanding the ESLint configuration
+- / - Основная страница с таймером
+- /statistics - Страница со статистикой использования таймера
+- /settings - Страница для изменения настроек таймера
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Выполнены дополнительные задания
 
-- Configure the top-level `parserOptions` property like this:
+- Добавить анимации
+- Добавить темную тему
+- Добавить уведомления
+- Добавить настройки таймера
+- Сохранять состояние приложения при перезагрузке страницы (сохраняется в localStorage)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Примечания по дизайну
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Дополнительно были добавлены 2 пункта в краткую инструкцию работы с приложением
+- Кнопки управления таймером блокируются, если нет текущих заданий
+- Статистика за предыдушую дату просматривается посредством клика на соответствующий ей столбец диаграмы
+
+### Примечания по функционалу
+
+- В ESLint отключено правило "react-hooks/exhaustive-deps". Это необходимо, так как приложение при
+  каждом перезапуске, проверяет, изменилась ли текущая дата, вследствие чего объект Date.now()
+  в зависимостях вызвал бы бесконечный ререндер.
+
+- В объекте статистики за день используются 2 ключа: workTime и totalWorkTime.
+  Они хранят идентичные данные, но один обновляется во время работы таймера, а другой в конце его работы.
+  Таким образом избегается баг в показателе "Фокус", где время незавершенного таймера накладывается на общее время,
+  искусственно занижая показатель за текущую дату.

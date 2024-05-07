@@ -13,6 +13,8 @@ export function formatTimeStatsMain(time: number): string {
   return `${hours > 0 ? hours + " " : ""}${
     hours > 1 ? "часов " : hours > 0 ? "часа " : ""
   }${minutes > 0 ? minutes + " " : ""}${
-    strMinutes[strMinutes.length - 1] === "1" ? "минуты" : "минут"
+    strMinutes[strMinutes.length - 1] === "1" && strMinutes !== "11"
+      ? "минуты"
+      : "минут"
   }`.trim();
 }
