@@ -1,3 +1,4 @@
+import sound from "/audio/notification-sound.mp3";
 import ReactDOM from "react-dom";
 import { Icon } from "../Icon/Icon";
 import { useEffect } from "react";
@@ -20,7 +21,7 @@ export function Notification({
 }: TNotificationProps) {
   const dispatch = useDispatch();
   const notificationRoot = document.getElementById("notification-root");
-  const audio = new Audio("/audio/notification-sound.mp3");
+  const audio = new Audio(sound);
 
   useEffect(() => {
     audio.play();

@@ -162,11 +162,18 @@ export const rootReducer: Reducer<
     })
     .addCase(CHANGE_SETTINGS, (state, action: ChangeSettingsAction) => {
       Object.assign(state.globalControls, action.settings);
+      state.totalTime = 0;
       if (state.currTask && state.currTask.isStopped) {
-        state.totalTime -= state.currTask.totalTaskTime;
         state.currTask.totalTaskTime = action.settings.tomatoTime;
         state.currTask.time = action.settings.tomatoTime;
-        state.totalTime += state.currTask.totalTaskTime;
+      }
+      if (state.currTask && !state.currTask.isStopped) {
+        state.totalTime -= action.settings.tomatoTime;
+        state.totalTime += state.currTask.time;
+      }
+
+      for (const task of state.tasks) {
+        state.totalTime += task.tomatoes * action.settings.tomatoTime;
       }
       saveToStorage(state);
     })
